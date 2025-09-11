@@ -1,0 +1,20 @@
+- name: Convert Ad-Hoc to Playbook
+  hosts: servera.lab.example.com
+  gather_facts: false
+    # remote_user: devops
+  tasks:
+    - name: Create a file with Content NORMAL via Navigator
+      ansible.builtin.copy:
+        dest: /tmp/f1
+        content: 'Hello Class trafikverket'
+
+    - name: Create a file with Content ROOT
+      ansible.builtin.copy:
+        dest: /etc/f1
+        content: 'Hello Class trafikverket ETC'
+      become: true
+      
+      # INI / Ad-Hoc Format
+      # ansible.builtin.copy: dest=/tmp/f1 content='Hello Class trafikverket'
+
+      # ansible [COmpany/Org/Namespace].builtin[Product/Collection].copy[Module/Plugin/Role]

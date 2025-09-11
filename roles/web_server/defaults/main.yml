@@ -1,0 +1,7 @@
+---
+# defaults file for web_server
+
+web_server_package: httpd
+web_server_service: httpd
+web_server_content: "Level 2 web_server Defaults Folder"
+web_server_path: /var/www/html

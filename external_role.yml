@@ -1,0 +1,7 @@
+- name: Test Collection External ROles/Modules
+  hosts: servera*
+  gather_facts: false
+
+  roles:
+    - role: cisco.catalystwan.health_checks
+    - role: redhat.rhel_system_roles.timesync

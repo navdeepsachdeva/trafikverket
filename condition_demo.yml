@@ -1,0 +1,36 @@
+- name: Install Web Server
+  hosts: servera*
+  gather_facts: true
+  tasks:
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+      register: pack_out
+      become: true
+
+    - name: Print Package Captured Output
+      ansible.builtin.debug:
+        msg: "{{ pack_out }}"
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page"
+        dest: /var/www/html/index.html
+        mode: "0644"
+      register: app_out
+      become: true
+
+    - name: Print App Captured Output
+      ansible.builtin.debug:
+        msg: "{{ app_out }}"
+
+    - name: Start Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+      # when: pack_out.changed == true and app_out.changed == true 
+      when:
+        - pack_out.changed == true or ansible_distribution == "RedHat"
+        - app_out.changed == true or ansible_distribution_major_version > "9" or meme is not defined
+      become: true

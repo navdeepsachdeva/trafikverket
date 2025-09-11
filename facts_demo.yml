@@ -1,0 +1,41 @@
+- name: Facts Demo
+  hosts: servera*
+  gather_facts: false
+  tasks:
+    - name: Something
+      ansible.builtin.debug:
+        msg: "Hello"
+    - name: Collect limited facts
+      ansible.builtin.setup:
+        gather_subset:
+          - '!all'
+          - 'min'
+          - 'network'
+          - 'hardware'
+    - name: Print the Facts
+      ansible.builtin.copy:
+        dest: /tmp/info.txt
+        content: |
+          Arch1         = {{ ansible_architecture }}
+          Arch2         = {{ ansible_facts.architecture }}
+          Arch3         = {{ ansible_facts['architecture'] }}
+          Date          = {{ ansible_date_time['date'] }}
+          Time          = {{ ansible_date_time['time'] }}
+          IP Address    = {{ ansible_default_ipv4['address'] }}
+          OS            = {{ ansible_facts['distribution'] }}
+          FQDN          = {{ ansible_fqdn }}
+          Hostname      = {{ ansible_hostname }}
+          Kernel        = {{ ansible_kernel }}
+          Python        = {{ ansible_python_version }}
+          VDA Size      = {{ ansible_devices['vda']['size'] }}
+          Total Memory  = {{ ansible_memory_mb.real.total }}
+          Free Memory   = {{ ansible_memory_mb.real.free }}
+          User Name     = {{ ansible_facts['ansible_local']['trafikverket']['user']['uname'] }}
+          Dept Name     = {{ ansible_facts['ansible_local']['trafikverket']['dept']['dlocation'] }}
+      when: ansible_distribution_version == "9.0"
+    - name: Upgrade web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+      become: true
+      when: ansible_facts['ansible_local']['trafikverket']['dept']['dlocation'] == "borlange"

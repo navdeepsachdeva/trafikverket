@@ -1,0 +1,30 @@
+- name: Install Web Server
+  hosts:
+    - servera*
+    - serverb*
+  gather_facts: false
+  tasks:
+    - name: Create a file with Content NORMAL
+      ansible.builtin.copy:
+        dest: /tmp/f1
+        content: 'Hello Class trafikverket'
+        mode: "0644"
+
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+      become: true
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page"
+        dest: /var/www/html/index.html
+        mode: "0644"
+      become: true
+
+    - name: Start Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+      become: true

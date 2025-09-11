@@ -1,0 +1,28 @@
+- name: Ignore Errors Demo
+  hosts: servera*
+  gather_facts: false
+  become: true
+  # ignore_errors: true
+  tasks:
+    - name: Create a file with Content NORMAL
+      ansible.builtin.copy:
+        dest: /tmpp/f1
+        content: 'Hello Class trafikverket'
+        mode: "0644"
+      ignore_errors: true
+
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpdd
+        state: present
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page"
+        dest: /var/wwwww/html/index.html
+        mode: "0644"
+
+    - name: Start Web Service
+      ansible.builtin.service:
+        name: httpdd
+        state: started

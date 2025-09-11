@@ -1,0 +1,11 @@
+- name: ANsible Host Demo
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+
+    - name: Deploy System App Page
+      ansible.builtin.template:
+        src: ./j2/simple.j2
+        dest: /var/www/html/info.html
+        mode: "0644"

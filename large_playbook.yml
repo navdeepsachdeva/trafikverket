@@ -1,0 +1,30 @@
+
+- name: Import First Playbook
+  ansible.builtin.import_playbook: loops_demo.yml
+
+
+- name: Integration Playbook
+  hosts: servera*
+  gather_facts: false
+  tasks:
+    - name: Import a Task File
+      ansible.builtin.import_tasks:
+        file: tasks/setup_ldap.yml
+      when: meme is defined
+
+    - name: Include a Task File
+      ansible.builtin.include_tasks:
+        file: tasks/setup_oracle.yml
+      when: meme is  defined
+      
+
+    - name: Loop around Task Files
+      # ansible.builtin.import_tasks:
+      ansible.builtin.include_tasks:
+        file: "{{ item }}"
+      loop:
+        - tasks/setup_ldap.yml
+        - tasks/setup_oracle.yml
+
+- name: Import Second Playbook
+  ansible.builtin.import_playbook: multiple_play.yml

@@ -1,0 +1,48 @@
+- name: Force Handlers Dependency Task Demo
+  hosts: servera*
+  gather_facts: false
+  become: true
+  force_handlers: true
+  tasks:
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+      notify:
+        - Restart Web Service
+        - Package Installed
+
+    - name: Create a file with Content NORMAL
+      ansible.builtin.copy:
+        dest: /tmpp/f1
+        content: 'Hello Class trafikverket'
+        mode: "0644"
+      notify:
+        - Extra Handlers
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page Trafik"
+        dest: /var/www/html/index.html
+        mode: "0644"
+      notify:
+        - App Deployed
+        - Restart Web Service
+
+  handlers:
+    - name: "Extra Handlers"
+      ansible.builtin.debug:
+        msg: "No One will Call Me"
+
+    - name: Package Installed
+      ansible.builtin.debug:
+        msg: "Web Package Installed"
+
+    - name: App Deployed
+      ansible.builtin.debug:
+        msg: "App Deployed SUccessfully"
+
+    - name: Restart Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: restarted

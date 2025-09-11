@@ -1,0 +1,31 @@
+# INI Format Static Inventory
+#
+
+[control]
+workstation.lab.example.com
+# Control_London	ansible_host=workstation.lab.example.com
+
+[all:vars]
+floor_level="Level 3 Inventory file ALL"
+
+[dev]
+servera.lab.example.com
+serverb.lab.example.com floor_level="Level 8 Inventory file ServerB ONLY"
+# Web_Borlange ansible_host=serverb.lab.example.com floor_level="Level 8 Inventory file ServerB ONLY"
+
+[test]
+serverc.lab.example.com
+# Web_Stockholm ansible_host=serverc.lab.example.com
+
+[prod]
+serverd.lab.example.com
+# DB_Oslo ansible_host=serverd.lab.example.com
+# 172.25.250.13
+
+[pre_prod:children]
+dev
+test
+
+# [range]
+# server[A:F].lab.example.com
+# 192.168.[1:4].[5:8]

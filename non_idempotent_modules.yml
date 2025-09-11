@@ -1,0 +1,19 @@
+- name: Non Idempotent Modules
+  hosts: servera*
+  gather_facts: false
+  tasks:
+    - name: Read File
+      ansible.builtin.command:
+        cmd: tail -n 2 /etc/passwd
+
+    - name: Create a File via command module
+      ansible.builtin.command:
+        cmd: echo "Hello Command" >> /tmp/some
+
+    - name: Create a File via shell module
+      ansible.builtin.shell:
+        cmd: echo "Hello SHELL" >> /tmp/some
+
+    - name: Install Python if doesn't exist
+      ansible.builtin.raw: dnf install -y python3
+      become: true

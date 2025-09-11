@@ -1,0 +1,50 @@
+{% for sys  in groups["control"] %}
+
+## Control Node Info for {{ hostvars[sys].inventory_hostname }} ##
+
+System Var    = {{ sys }}
+Hostname      = {{ ansible_hostname }}
+FQDN          = {{ ansible_fqdn }}
+Arch1         = {{ ansible_architecture }}
+Arch2         = {{ ansible_facts.architecture }}
+Arch3         = {{ ansible_facts['architecture'] }}
+Date          = {{ ansible_date_time['date'] }}
+Time          = {{ ansible_date_time['time'] }}
+IP Address    = {{ ansible_default_ipv4['address'] }}
+OS            = {{ ansible_facts['distribution'] }}
+Kernel        = {{ ansible_kernel }}
+Python        = {{ ansible_python_version }}
+VDA Size      = {{ ansible_devices['vda']['size'] }}
+Total Memory  = {{ ansible_memory_mb.real.total }}
+Free Memory   = {{ ansible_memory_mb.real.free }}
+User Name     = {{ ansible_facts['ansible_local']['trafikverket']['user']['uname'] | default(" Not Available") }}
+Dept Name     = {{ ansible_facts['ansible_local']['trafikverket']['dept']['dlocation'] | default(" Not Available") }}
+
+{% endfor %}
+
+
+{% for sys  in groups["all"] %}
+{% if sys not in groups["control"] %}
+
+## Managed Host Info for {{ hostvars[sys].inventory_hostname }} ##
+
+System Var    = {{ sys }}
+Hostname      = {{ hostvars[sys].ansible_hostname }}
+FQDN          = {{ hostvars[sys].ansible_fqdn }}
+Arch1         = {{ hostvars[sys].ansible_architecture }}
+Arch2         = {{ hostvars[sys].ansible_facts.architecture }}
+Arch3         = {{ hostvars[sys].ansible_facts['architecture'] }}
+Date          = {{ hostvars[sys].ansible_date_time['date'] }}
+Time          = {{ hostvars[sys].ansible_date_time['time'] }}
+IP Address    = {{ hostvars[sys].ansible_default_ipv4['address'] }}
+OS            = {{ hostvars[sys].ansible_facts['distribution'] }}
+Kernel        = {{ hostvars[sys].ansible_kernel }}
+Python        = {{ hostvars[sys].ansible_python_version }}
+VDA Size      = {{ hostvars[sys].ansible_devices['vda']['size'] }}
+Total Memory  = {{ hostvars[sys].ansible_memory_mb.real.total }}
+Free Memory   = {{ hostvars[sys].ansible_memory_mb.real.free }}
+User Name     = {{ hostvars[sys].ansible_facts['ansible_local']['trafikverket']['user']['uname'] | default(" Not Available") }}
+Dept Name     = {{ hostvars[sys].ansible_facts['ansible_local']['trafikverket']['dept']['dlocation'] | default(" Not Available") }}
+
+{% endif %}
+{% endfor %}

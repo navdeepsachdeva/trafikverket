@@ -1,0 +1,53 @@
+- name: Loops Demo
+  hosts: servera*
+  gather_facts: false
+  vars_files:
+    - vars/outside_vars.yml
+  tasks:
+    - name: Simple User List
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_items: "{{ simple_list }}"
+      # loop: "{{ simple_list }}"
+
+    - name: Complex User List
+      ansible.builtin.debug:
+        msg: "{{ item.fn }} == {{ item['ln'] }}"
+      with_list: "{{ complex_list }}"
+      # loop: "{{ complex_list }}"
+
+    - name: Dictionary User List
+      ansible.builtin.debug:
+        msg: "{{ item['key'] }} // {{ item['value'] }}"
+      # with_dict: "{{ dict_user_list }}"
+      loop: "{{ dict_user_list | dict2items }}"
+
+    - name: Setup IP Address
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      when: item != "eth2"
+      with_sequence: start=0 end=4 format=eth%x
+
+    - name: Install Multiple Package
+      ansible.builtin.dnf:
+        name: "{{ packages }}"
+          # - httpd
+          # - vsftpd
+        # "{{ item }}"
+        state: present
+      register: myout
+      # loop: "{{ packages }}"
+      become: true
+
+    - name: Print Captured Output
+      ansible.builtin.debug:
+        msg: "{{ myout }}"
+
+    - name: Start Multiple Service
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      loop: "{{ services }}"
+      when: myout.changed == true
+      become: true
+# loops were introduced in ANsible 2.5

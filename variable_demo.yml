@@ -1,0 +1,25 @@
+- name: Variable Demo
+  hosts:
+    - dev
+    - test
+  gather_facts: false
+  # Don't Write Variable in Play
+  vars:
+    floor_level: "Level 12 Play vars"
+    MYSQL_USER: user1
+  
+  # Development Level Only Level 13
+  vars_prompt:
+    - name: floor_level
+      prompt: "Enter your Level"
+      private: false
+  vars_files:
+    - ./vars/outside_vars.yml
+
+  tasks:
+    - name: "Print the value for {{ inventory_hostname }}"
+      ansible.builtin.debug:
+        msg: >
+          {{ inventory_hostname }} = {{ floor_level }}
+          {{ users.bjones.last_name }} {{ users['acook']['first_name'] }} {{ abc }}
+        # msg: " Current Host = {{ inventory_hostname }} {{ ansible_user }} {{ ansible_connection }} {{ ansible_host }}"

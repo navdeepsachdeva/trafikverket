@@ -1,0 +1,11 @@
+- name: Oracle Server Task 1
+  ansible.builtin.shell: sleep 2
+
+- name: Oracle Server Task 2
+  ansible.builtin.shell: sleep 2
+
+- name: Oracle Server Task 3
+  ansible.builtin.shell: sleep 2
+
+- name: Oracle Server Task 4
+  ansible.builtin.shell: sleep 2

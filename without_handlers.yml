@@ -1,0 +1,28 @@
+- name: Without Handlers Register Demo Dependency Task
+  hosts: servera*
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+      register: captured
+
+    - name: Print the Capture output
+      ansible.builtin.debug:
+        msg: "{{ captured }}"
+
+
+    - name: Start Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+      when: captured.changed
+      # when: captured.changed == true
+
+    # - name: Deploy App
+    #   ansible.builtin.copy:
+    #     content: "Index Page"
+    #     dest: /var/www/html/index.html
+    #     mode: "0644"

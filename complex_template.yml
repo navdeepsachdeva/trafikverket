@@ -1,0 +1,11 @@
+- name: Templare Demo
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Deploy System App Page
+      ansible.builtin.template:
+        src: ./j2/complex.j2
+        dest: /tmp/info.txt
+        mode: "0644"
+      when: inventory_hostname in groups["control"]

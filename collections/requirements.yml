@@ -1,0 +1,4 @@
+collections:
+  - name: cisco.catalystwan
+  - name: /home/student/Downloads/community-crypto-3.0.3.tar.gz
+  - name: /home/student/Downloads/community-general-11.3.0.tar.gz

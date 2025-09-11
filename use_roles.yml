@@ -1,0 +1,28 @@
+- name: Roles Demo
+  hosts: servera*
+  gather_facts: true
+  # become: true
+  roles:
+    - role: web_server
+      become: true
+      web_server_content: "Override in Play"
+
+  tasks:
+    - name: Extra Task
+      ansible.builtin.shell:
+        cmd: sleep 2
+      notify:
+        - extra_handler
+
+    - name: Import/Include a Role
+      # ansible.builtin.import_role:
+      ansible.builtin.include_role:
+        name: info_server
+      when: meme is defined
+
+  handlers:
+    - name: extra_handler
+      ansible.builtin.debug:
+        msg: "Extra Handler in Playbook"
+    
+

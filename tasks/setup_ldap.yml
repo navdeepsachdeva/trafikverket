@@ -1,0 +1,15 @@
+- name: Ldap Server Task 1
+  ansible.builtin.debug:
+    msg: "Ldap Task 1 Finished"
+
+- name: Ldap Server Task 2
+  ansible.builtin.debug:
+    msg: "Ldap Task 2 Finished"
+
+- name: Ldap Server Task 3
+  ansible.builtin.debug:
+    msg: "Ldap Task 3 Finished"
+
+- name: Ldap Server Task 4
+  ansible.builtin.debug:
+    msg: "Ldap Task 4 Finished"

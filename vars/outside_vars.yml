@@ -1,0 +1,47 @@
+floor_level: "Level 14 Play vars_files"
+packages:
+  - vsftpd
+  - httpd
+services:
+  - vsftpd
+  - httpd
+
+simple_list:
+  - Adam
+  - Daniel1
+  - Daniel2
+  - Ludwig
+
+complex_list:
+  - fn: Adam
+    ln: Halvars
+  - fn: Daniel1
+    ln: Ahlberg
+  - fn: Daniel2
+    ln: Fahlen
+  - fn: Ludwig
+    ln: Eweström
+
+dict_user_list:
+  Adam: Halvars
+  Daniel1: Ahlberg
+  Daniel2: Fahlen
+  Pontus: Johansson
+
+users:
+  bjones:
+    first_name: Bob
+    last_name: Jones
+    home_dir: /users/bjones
+  acook:
+    first_name: Anne
+    last_name: Cook
+    home_dir: /users/acook
+    abc: youme
+    # abc: !vault |
+    #       $ANSIBLE_VAULT;1.1;AES256
+    #       30633538616531333137636334626530326666306337653264313432323736386361653062663366
+    #       6634393834653031303663633861623863653966363762650a313333613033303361396137396161
+    #       30343261643965643565623432313835346361636264393461373538613539643237373163326164
+    #       3564396539626136630a636462393434333735306532373762306266633535346230636131336435
+    #       3363

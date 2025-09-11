@@ -1,0 +1,19 @@
+---
+# handlers file for web_server
+
+- name: "Extra Handlers"
+  ansible.builtin.debug:
+    msg: "No One will Call Me"
+
+- name: Package Installed
+  ansible.builtin.debug:
+    msg: "Web Package Installed"
+
+- name: App Deployed
+  ansible.builtin.debug:
+    msg: "App Deployed SUccessfully"
+
+- name: Restart Web Service
+  ansible.builtin.service:
+    name: "{{ web_server_service }}"
+    state: restarted

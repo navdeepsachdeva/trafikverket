@@ -1,0 +1,43 @@
+- name: failed_when/fail/assert Handlers Demo
+  hosts: servera*
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+      register: captured
+      # failed_when: not captured.changed 
+
+    # - name: Stop Play
+    #   ansible.builtin.meta: end_host
+    #   when: not captured.changed
+
+    - name: Print capture output
+      ansible.builtin.debug:
+        msg: "{{ captured }}"
+
+    # - name: Stop via Fail Module
+    #   ansible.builtin.fail:
+    #     msg: "Stopped because update = {{ captured.changed }}"
+    #   when: not captured.changed 
+
+    - name: Confirm via assert Module
+      ansible.builtin.assert:
+        that:
+          - captured.changed
+          - meme is not defined
+        fail_msg: "Assert Stopped update = {{ captured.changed }}"
+        success_msg: "Fantastic Update Session"
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page Trafik"
+        dest: /var/www/html/index.html
+        mode: "0644"
+
+    - name: Restart Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: restarted

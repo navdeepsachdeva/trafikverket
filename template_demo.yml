@@ -1,0 +1,48 @@
+- name: Templare Demo
+  hosts: servera*
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+      notify:
+        - Restart Web Service
+        - Package Installed
+
+    - name: Deploy System App Page
+      ansible.builtin.template:
+        src: ./j2/simple.j2
+        dest: /var/www/html/info.html
+        mode: "0644"
+      notify:
+        - System App Deployed
+        - Restart Web Service
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page Trafik"
+        dest: /var/www/html/index.html
+        mode: "0644"
+      notify:
+        - App Deployed
+        - Restart Web Service
+
+  handlers:
+    - name: Package Installed
+      ansible.builtin.debug:
+        msg: "Web Package Installed"
+
+    - name: App Deployed
+      ansible.builtin.debug:
+        msg: "App Deployed SUccessfully"
+
+    - name: Restart Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+
+    - name: System App Deployed
+      ansible.builtin.debug:
+        msg: "App Deployed SUccessfully"

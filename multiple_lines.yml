@@ -1,0 +1,26 @@
+- name: Multiple Lines Demo
+  hosts: servera*
+  gather_facts: false
+  tasks: 
+    - name: Create a file Normal
+      ansible.builtin.copy:
+        dest: /tmp/f1
+        content: 'Hello Class trafikverket, This is expremply Big Line and i have now an idea to Fix it'
+        mode: "0644"
+
+    - name: Create a file Normal Better Readable
+      ansible.builtin.copy:
+        dest: /tmp/f2
+        content: >
+              Hello Class trafikverket,
+              This is expremply Big Line
+              and i have now an idea to Fix it
+        mode: "0644"
+    - name: Create a file Normal Keep Format
+      ansible.builtin.copy:
+        dest: /tmp/f3
+        content: |
+              Hello Class trafikverket,
+              This is expremply Big Line
+              and i have now an idea to Fix it
+        mode: "0644"

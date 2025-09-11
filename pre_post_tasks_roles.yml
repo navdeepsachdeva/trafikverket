@@ -1,0 +1,72 @@
+- name: Roles Demo
+  hosts: servera*
+  gather_facts: true
+
+  pre_tasks:
+    - name: Check Pre-Requisite 
+      ansible.builtin.assert:  
+        that:
+          - ansible_facts['architecture'] == "x86_64"
+          - ansible_python_version >="3.9.0"
+          - ansible_memory_mb.real.free < 500
+          - meme is not defined
+        fail_msg: "Check Arch or Memory or Python Version"
+        success_msg: "All Good to Go"
+
+    - name: Inform Client Before Update
+      ansible.builtin.shell:
+        cmd: sleep 2
+      notify:
+        - services_down
+
+  roles:
+    - role: web_server
+      become: true
+      web_server_content: "Override in Play"
+
+  tasks:
+    - name: Extra Task
+      ansible.builtin.shell:
+        cmd: sleep 2
+      notify:
+        - extra_handler
+
+    - name: Import/Include a Role
+      # ansible.builtin.import_role:
+      ansible.builtin.include_role:
+        name: info_server
+      when: meme is not defined
+
+
+  post_tasks:
+    - name: Ping the Server
+      ansible.builtin.ping:
+    
+    - name: Access the Page
+      ansible.builtin.uri:
+        url: http://servera.lab.example.com
+        return_content: true
+      register: ville_captured
+    
+    - name: print the capture content
+      ansible.builtin.debug:
+        msg: "Website Content is // {{ ville_captured.content }}"
+
+    - name: Inform Client After Update
+      ansible.builtin.shell:
+        cmd: sleep 2
+      notify:
+        - services_up
+
+  handlers:
+    - name: extra_handler
+      ansible.builtin.debug:
+        msg: "Extra Handler in Playbook"
+
+    - name: services_down
+      ansible.builtin.debug:
+        msg: "Instragram down Sleep Now"
+
+    - name: services_up
+      ansible.builtin.debug:
+        msg: "Instragram UP Start Wasting Time"

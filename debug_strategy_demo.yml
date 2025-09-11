@@ -1,0 +1,51 @@
+- name: Debug Strategy Demo
+  hosts: servera*
+  gather_facts: false
+  become: true
+  strategy: debug
+  # ignore_errors: true
+  tasks:
+    - name: Task 1
+      ansible.builtin.command:
+        cmd: sleep 2
+      register: out
+
+    - name: Create a file with Content NORMAL Task 21
+      ansible.builtin.copy:
+        dest: /tmpp/f1
+        content: "Hello Class {{ out.changed }}"
+        mode: "0644"
+      # task.args
+      # task.args['dest']="/tmp/f1"
+      # task.args
+      # redo
+
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpdd
+        state: present
+      # task.args
+      # task.args['name']="httpd"
+      # redo
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page"
+        dest: /var/wwwww/html/index.html
+        modeeee: "0644"
+      # task.args
+      # task.args['dest']="/var/www/html/index.html"
+      # task.args['mode']="0644"
+      # del(task.args['modeeee'])
+      # redo
+
+    - name: Start Web Service
+      ansible.builtin.service:
+        name: httpdd
+        stateeeee: started
+      # task.args
+      # task.args['name']="httpd"
+      # task.args['state']="started"
+      # del(task.args['stateeeee'])
+      # task.args
+      # redo

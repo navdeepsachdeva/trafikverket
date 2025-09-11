@@ -1,0 +1,60 @@
+- name: Configure Web Server First Play
+  hosts: servera*
+    # - servera*
+    # - serverb*
+  gather_facts: false
+  remote_user: devops
+  become: true
+  tasks:
+    - name: Install web package
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+
+    - name: Deploy App
+      ansible.builtin.copy:
+        content: "Index Page"
+        dest: /var/www/html/index.html
+        mode: "0644"
+    - name: Add a line if doesn't exist
+      ansible.builtin.lineinfile:
+        path: /var/www/html/index.html
+        state: present
+        regexp: '^%Hello'
+        line: "Hello Again"
+
+    - name: Start Web Service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+
+    - name: Open Web Port
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+
+- name: Test Web Server Second Play
+  hosts: workstation*
+  gather_facts: false
+  remote_user: student
+  become: false
+  # become_method: runas
+  tasks:
+    - name: Ping the Server
+      ansible.builtin.ping:
+
+    - name: Access the Page
+      ansible.builtin.uri:
+        url: http://servera.lab.example.com
+        return_content: true
+      register: ville_captured
+
+    - name: print the capture content
+      ansible.builtin.debug:
+        msg: "Website Content is // {{ ville_captured.content }}"
+        # var: ville_captured.content
+        # var: ville_captured
+
+# ansible-navigator run multiple_play.yml --limit=servera*

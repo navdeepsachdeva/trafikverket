@@ -1,0 +1,86 @@
+- name: Block/Rescue/Always Demo Play
+  hosts: servera*
+  gather_facts: true
+  become: false
+  tasks:
+    - name: Task 1 Outside Block
+      ansible.builtin.debug:
+        msg: "Task 1 Outside Block"
+
+    - name: Block for Web Server Setup
+      become: true
+      when:
+        - ansible_facts.architecture == "x86_64"
+        - ansible_facts['distribution'] == "RedHat"
+      block:
+          - name: Install web package
+            ansible.builtin.dnf:
+              name: httpd
+              state: present
+
+          - name: Deploy App
+            ansible.builtin.copy:
+              content: "Index Page"
+              dest: /var/www/html/index.html
+              mode: "0644"
+
+          - name: Start Web Service
+            ansible.builtin.service:
+              name: httpdd
+              state: started
+
+          - name: Open Web Port
+            ansible.posix.firewalld:
+              service: http
+              permanent: true
+              state: enabled
+              immediate: true
+      rescue:
+          - name: Last Known Good Config
+            ansible.builtin.debug:
+              msg: "MayDay MayDay Undo"
+
+          - name: Close Web Port
+            ansible.posix.firewalld:
+              service: http
+              permanent: true
+              state: disabled
+              immediate: true
+
+          - name: Undeploy App
+            ansible.builtin.shell:
+              cmd: rm -rf /var/www/html/*
+
+          - name: Uninstall web package
+            ansible.builtin.dnf:
+              name: httpd
+              state: absent
+              autoremove: true
+      always:
+        - name: Inform Client
+          ansible.builtin.debug:
+            msg: "Inform Client"
+
+    - name: Task 2 Outside Block
+      ansible.builtin.debug:
+        msg: "Task 2 Outside Block"
+
+# - name: Test Web Server Second Play
+#   hosts: workstation*
+#   gather_facts: false
+#   remote_user: student
+#   become: false
+#   # become_method: runas
+#   tasks:
+#     - name: Ping the Server
+#       ansible.builtin.ping:
+# 
+#     - name: Access the Page
+#       ansible.builtin.uri:
+#         url: http://servera.lab.example.com
+#         return_content: true
+#       register: ville_captured
+# 
+#     - name: print the capture content
+#       ansible.builtin.debug:
+#         msg: "Website Content is // {{ ville_captured.content }}"
