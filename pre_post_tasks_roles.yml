@@ -8,7 +8,7 @@
         that:
           - ansible_facts['architecture'] == "x86_64"
           - ansible_python_version >="3.9.0"
-          - ansible_memory_mb.real.free < 500
+          - ansible_memory_mb.real.free > 100
           - meme is not defined
         fail_msg: "Check Arch or Memory or Python Version"
         success_msg: "All Good to Go"

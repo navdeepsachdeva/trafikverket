@@ -15,11 +15,11 @@
 		Hostname      = {{ ansible_hostname }}
 		Kernel        = {{ ansible_kernel }}
 		Python        = {{ ansible_python_version }}
-		VDA Size      = {{ ansible_devices['vda']['size'] }}
+		# VDA Size      = {{ ansible_devices['vda']['size'] | default("Not Avaiable") }}
 		Total Memory  = {{ ansible_memory_mb.real.total }}
 		Free Memory   = {{ ansible_memory_mb.real.free }}
-		User Name     = {{ ansible_facts['ansible_local']['trafikverket']['user']['uname'] }}
-		Dept Name     = {{ ansible_facts['ansible_local']['trafikverket']['dept']['dlocation'] }}
+		User Name     = {{ ansible_facts['ansible_local']['trafikverket']['user']['uname'] | default("Not Avaiable") }}
+		Dept Name     = {{ ansible_facts['ansible_local']['trafikverket']['dept']['dlocation'] | default("Not Avaiable") }}
 		</pre>
 	</body>
 </html>

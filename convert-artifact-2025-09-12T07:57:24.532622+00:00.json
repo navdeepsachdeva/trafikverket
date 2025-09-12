@@ -1,0 +1,322 @@
+{
+    "plays": [
+        {
+            "__play_name": "Convert Ad-Hoc to Playbook",
+            "name": "Convert Ad-Hoc to Playbook",
+            "pattern": "servera.lab.example.com",
+            "play": "Convert Ad-Hoc to Playbook",
+            "play_pattern": "servera.lab.example.com",
+            "play_uuid": "1aad56d7-126f-4192-f835-000000000006",
+            "playbook": "/home/student/trafikverket/convert.yml",
+            "playbook_uuid": "387633e9-0926-488a-974a-55cf3ccb366d",
+            "tasks": [
+                {
+                    "__changed": false,
+                    "__duration": "1s",
+                    "__host": "servera.lab.example.com",
+                    "__number": 0,
+                    "__result": "Ok",
+                    "__task": "Create a file with Content NORMAL via Navigator",
+                    "__task_action": "ansible.builtin.copy",
+                    "duration": 1.431939,
+                    "end": "2025-09-12T07:57:23.322387+00:00",
+                    "event_loop": null,
+                    "host": "servera.lab.example.com",
+                    "play": "Convert Ad-Hoc to Playbook",
+                    "play_pattern": "servera.lab.example.com",
+                    "play_uuid": "1aad56d7-126f-4192-f835-000000000006",
+                    "playbook": "/home/student/trafikverket/convert.yml",
+                    "playbook_uuid": "387633e9-0926-488a-974a-55cf3ccb366d",
+                    "remote_addr": "servera.lab.example.com",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "ansible_facts": {
+                            "discovered_interpreter_python": "/usr/bin/python3"
+                        },
+                        "changed": false,
+                        "checksum": "253511ccc108d1218ef01ef046342cb38674baf5",
+                        "dest": "/tmp/f1",
+                        "diff": {
+                            "after": {
+                                "path": "/tmp/f1"
+                            },
+                            "before": {
+                                "path": "/tmp/f1"
+                            }
+                        },
+                        "gid": 1001,
+                        "group": "devops",
+                        "invocation": {
+                            "module_args": {
+                                "_diff_peek": null,
+                                "_original_basename": "tmph1h_fglu",
+                                "access_time": null,
+                                "access_time_format": "%Y%m%d%H%M.%S",
+                                "attributes": null,
+                                "dest": "/tmp/f1",
+                                "follow": true,
+                                "force": false,
+                                "group": null,
+                                "mode": null,
+                                "modification_time": null,
+                                "modification_time_format": "%Y%m%d%H%M.%S",
+                                "owner": null,
+                                "path": "/tmp/f1",
+                                "recurse": false,
+                                "selevel": null,
+                                "serole": null,
+                                "setype": null,
+                                "seuser": null,
+                                "src": null,
+                                "state": "file",
+                                "unsafe_writes": false
+                            }
+                        },
+                        "mode": "0644",
+                        "owner": "devops",
+                        "path": "/tmp/f1",
+                        "secontext": "unconfined_u:object_r:user_home_t:s0",
+                        "size": 24,
+                        "state": "file",
+                        "uid": 1001
+                    },
+                    "resolved_action": "ansible.builtin.copy",
+                    "start": "2025-09-12T07:57:21.890448+00:00",
+                    "task": "Create a file with Content NORMAL via Navigator",
+                    "task_action": "ansible.builtin.copy",
+                    "task_args": "",
+                    "task_path": "/home/student/trafikverket/convert.yml:6",
+                    "task_uuid": "1aad56d7-126f-4192-f835-000000000008",
+                    "uuid": "716af8f2-867e-4280-b7b3-2fc1636d9284"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "1s",
+                    "__host": "servera.lab.example.com",
+                    "__number": 1,
+                    "__result": "Ok",
+                    "__task": "Create a file with Content ROOT",
+                    "__task_action": "ansible.builtin.copy",
+                    "duration": 0.775533,
+                    "end": "2025-09-12T07:57:24.104105+00:00",
+                    "event_loop": null,
+                    "host": "servera.lab.example.com",
+                    "play": "Convert Ad-Hoc to Playbook",
+                    "play_pattern": "servera.lab.example.com",
+                    "play_uuid": "1aad56d7-126f-4192-f835-000000000006",
+                    "playbook": "/home/student/trafikverket/convert.yml",
+                    "playbook_uuid": "387633e9-0926-488a-974a-55cf3ccb366d",
+                    "remote_addr": "servera.lab.example.com",
+                    "res": {
+                        "_ansible_no_log": false,
+                        "changed": false,
+                        "checksum": "1b396b6a81273d9d912c00f1d9171df249f59596",
+                        "dest": "/etc/f1",
+                        "diff": {
+                            "after": {
+                                "path": "/etc/f1"
+                            },
+                            "before": {
+                                "path": "/etc/f1"
+                            }
+                        },
+                        "gid": 0,
+                        "group": "root",
+                        "invocation": {
+                            "module_args": {
+                                "_diff_peek": null,
+                                "_original_basename": "tmpki2p46it",
+                                "access_time": null,
+                                "access_time_format": "%Y%m%d%H%M.%S",
+                                "attributes": null,
+                                "dest": "/etc/f1",
+                                "follow": true,
+                                "force": false,
+                                "group": null,
+                                "mode": null,
+                                "modification_time": null,
+                                "modification_time_format": "%Y%m%d%H%M.%S",
+                                "owner": null,
+                                "path": "/etc/f1",
+                                "recurse": false,
+                                "selevel": null,
+                                "serole": null,
+                                "setype": null,
+                                "seuser": null,
+                                "src": null,
+                                "state": "file",
+                                "unsafe_writes": false
+                            }
+                        },
+                        "mode": "0644",
+                        "owner": "root",
+                        "path": "/etc/f1",
+                        "secontext": "system_u:object_r:etc_t:s0",
+                        "size": 28,
+                        "state": "file",
+                        "uid": 0
+                    },
+                    "resolved_action": "ansible.builtin.copy",
+                    "start": "2025-09-12T07:57:23.328572+00:00",
+                    "task": "Create a file with Content ROOT",
+                    "task_action": "ansible.builtin.copy",
+                    "task_args": "",
+                    "task_path": "/home/student/trafikverket/convert.yml:11",
+                    "task_uuid": "1aad56d7-126f-4192-f835-000000000009",
+                    "uuid": "ed64cc4b-8d56-4a65-ba7d-ec723ccb2e9d"
+                }
+            ],
+            "uuid": "1aad56d7-126f-4192-f835-000000000006"
+        }
+    ],
+    "settings_entries": {
+        "ansible-navigator": {
+            "ansible": {
+                "config": {
+                    "help": false,
+                    "path": "./ansible.cfg"
+                },
+                "doc": {
+                    "help": false,
+                    "plugin": {
+                        "type": "module"
+                    }
+                },
+                "inventory": {
+                    "entries": [
+                        "/home/student/trafikverket/borlange_inventory"
+                    ],
+                    "help": false
+                },
+                "playbook": {
+                    "help": false,
+                    "path": "/home/student/trafikverket/convert.yml"
+                }
+            },
+            "ansible-builder": {
+                "help": false,
+                "workdir": "/home/student/trafikverket"
+            },
+            "ansible-runner": {
+                "job-events": false
+            },
+            "app": "run",
+            "collection-doc-cache-path": "/home/student/.cache/ansible-navigator/collection_doc_cache.db",
+            "color": {
+                "enable": true,
+                "osc4": true
+            },
+            "editor": {
+                "command": "vi +{line_number} {filename}",
+                "console": true
+            },
+            "enable-prompts": false,
+            "exec": {
+                "command": "/bin/bash",
+                "shell": true
+            },
+            "execution-environment": {
+                "container-engine": "podman",
+                "enabled": true,
+                "image": "aap.lab.example.com/ee-supported-rhel8:latest",
+                "pull": {
+                    "policy": "missing"
+                }
+            },
+            "format": "yaml",
+            "images": {
+                "details": [
+                    "everything"
+                ]
+            },
+            "logging": {
+                "append": true,
+                "file": "/home/student/trafikverket/ansible-navigator.log",
+                "level": "warning"
+            },
+            "mode": "stdout",
+            "playbook-artifact": {
+                "enable": true,
+                "save-as": "{playbook_dir}/{playbook_name}-artifact-{time_stamp}.json"
+            },
+            "settings": {
+                "effective": false,
+                "sample": false,
+                "schema": "json",
+                "sources": false
+            },
+            "time-zone": "UTC"
+        }
+    },
+    "settings_sources": {
+        "ansible-navigator.ansible-builder.help": "Defaults",
+        "ansible-navigator.ansible-builder.workdir": "Defaults",
+        "ansible-navigator.ansible-lint.config": "Not set",
+        "ansible-navigator.ansible-lint.lintables": "Not set",
+        "ansible-navigator.ansible-runner.artifact-dir": "Not set",
+        "ansible-navigator.ansible-runner.job-events": "Defaults",
+        "ansible-navigator.ansible-runner.rotate-artifacts-count": "Not set",
+        "ansible-navigator.ansible-runner.timeout": "Not set",
+        "ansible-navigator.ansible.cmdline": "Not set",
+        "ansible-navigator.ansible.config.help": "Defaults",
+        "ansible-navigator.ansible.config.path": "Settings file",
+        "ansible-navigator.ansible.doc.help": "Defaults",
+        "ansible-navigator.ansible.doc.plugin.name": "Not set",
+        "ansible-navigator.ansible.doc.plugin.type": "Defaults",
+        "ansible-navigator.ansible.inventory.entries": "Settings file",
+        "ansible-navigator.ansible.inventory.help": "Defaults",
+        "ansible-navigator.ansible.playbook.help": "Defaults",
+        "ansible-navigator.ansible.playbook.path": "Command line",
+        "ansible-navigator.app": "Command line",
+        "ansible-navigator.collection-doc-cache-path": "Defaults",
+        "ansible-navigator.color.enable": "Defaults",
+        "ansible-navigator.color.osc4": "Defaults",
+        "ansible-navigator.editor.command": "Defaults",
+        "ansible-navigator.editor.console": "Defaults",
+        "ansible-navigator.enable-prompts": "Defaults",
+        "ansible-navigator.exec.command": "Defaults",
+        "ansible-navigator.exec.shell": "Defaults",
+        "ansible-navigator.execution-environment.container-engine": "Settings file",
+        "ansible-navigator.execution-environment.container-options": "Not set",
+        "ansible-navigator.execution-environment.enabled": "Settings file",
+        "ansible-navigator.execution-environment.environment-variables.pass": "Not set",
+        "ansible-navigator.execution-environment.environment-variables.set": "Not set",
+        "ansible-navigator.execution-environment.image": "Command line",
+        "ansible-navigator.execution-environment.pull.arguments": "Not set",
+        "ansible-navigator.execution-environment.pull.policy": "Settings file",
+        "ansible-navigator.execution-environment.volume-mounts": "Not set",
+        "ansible-navigator.format": "Defaults",
+        "ansible-navigator.images.details": "Defaults",
+        "ansible-navigator.inventory-columns": "Not set",
+        "ansible-navigator.logging.append": "Defaults",
+        "ansible-navigator.logging.file": "Defaults",
+        "ansible-navigator.logging.level": "Defaults",
+        "ansible-navigator.mode": "Command line",
+        "ansible-navigator.playbook-artifact.enable": "Command line",
+        "ansible-navigator.playbook-artifact.replay": "Not set",
+        "ansible-navigator.playbook-artifact.save-as": "Settings file",
+        "ansible-navigator.settings.effective": "Defaults",
+        "ansible-navigator.settings.sample": "Defaults",
+        "ansible-navigator.settings.schema": "Defaults",
+        "ansible-navigator.settings.sources": "Defaults",
+        "ansible-navigator.time-zone": "Defaults",
+        "settings_file_path": "/home/student/trafikverket/ansible-navigator.yml",
+        "settings_file_source": "Search path"
+    },
+    "status": "successful",
+    "status_color": 10,
+    "stdout": [
+        "",
+        "PLAY [Convert Ad-Hoc to Playbook] **********************************************",
+        "",
+        "TASK [Create a file with Content NORMAL via Navigator] *************************",
+        "\u001b[0;32mok: [servera.lab.example.com]\u001b[0m",
+        "",
+        "TASK [Create a file with Content ROOT] *****************************************",
+        "\u001b[0;32mok: [servera.lab.example.com]\u001b[0m",
+        "",
+        "PLAY RECAP *********************************************************************",
+        "\u001b[0;32mservera.lab.example.com\u001b[0m    : \u001b[0;32mok=2   \u001b[0m changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   "
+    ],
+    "version": "2.0.0"
+}
