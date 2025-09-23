@@ -1,0 +1,28 @@
+---
+version: 3
+images:
+  base_image:
+    name: aap.lab.example.com/ee-minimal-rhel8:latest
+
+dependencies:
+  galaxy: requirements.yml
+  python: requirements.txt
+  system: bindep.txt
+
+options:
+  package_manager_path: /usr/bin/microdnf
+
+additional_build_files:
+  - src: ee.repo
+    dest: config/
+  - src: classroom-ca.pem
+    dest: certs/
+
+additional_build_steps:
+  prepend_base:
+    - ENV PIP_INDEX_URL="http://workstation.lab.example.com:8000/simple/"
+    - ENV PIP_TRUSTED_HOST="workstation.lab.example.com:8000"
+    - RUN sed -i "s/^enabled.*$/enabled = 0/" /etc/yum.repos.d/*.repo
+    - COPY _build/config/ee.repo /etc/yum.repos.d/ee.repo
+    - COPY _build/certs/classroom-ca.pem /etc/pki/ca-trust/source/anchors
+    - RUN update-ca-trust

@@ -1,0 +1,50 @@
+- name: Delegate Demo
+  hosts: servera*
+  gather_facts: true
+  tasks:
+    - name: Web Server Block
+      become: true
+      block:
+        - name: Install web package
+          ansible.builtin.dnf:
+            name: httpd
+            state: present
+
+        - name: Deploy App
+          ansible.builtin.copy:
+            content: "Index Page"
+            dest: /var/www/html/index.html
+            mode: "0644"
+        - name: Start Web Service
+          ansible.builtin.service:
+            name: httpd
+            state: started
+ 
+        - name: Open Web Port
+          ansible.posix.firewalld:
+            service: http
+            permanent: true
+            state: enabled
+            immediate: true
+
+    - name: Create a User
+      ansible.builtin.user:
+        name: "{{ ansible_facts.ansible_local.emp.user.emp_name }}"
+        comment: "belong to {{ ansible_facts.ansible_local.emp.dept.dept_name }}"
+        uid: "{{ ansible_facts.ansible_local.emp.user.emp_id }}"
+        password: "{{ 'redhat' | password_hash('sha512') }}"
+      delegate_to: serverb.lab.example.com
+      delegate_facts: true
+      become: true
+
+    - name: Access the Page
+      ansible.builtin.uri:
+        url: http://servera.lab.example.com
+        return_content: true
+      register: ville_captured
+      delegate_to: workstation.lab.example.com
+
+ 
+    - name: print the capture content
+      ansible.builtin.debug:
+        msg: "Website Content is // {{ ville_captured.content }}"

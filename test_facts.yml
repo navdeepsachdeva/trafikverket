@@ -1,0 +1,14 @@
+- name: Variable Demo
+  hosts:
+    - dev
+  gather_facts: true
+  vars_files:
+    - ./vars/outside_vars.yml
+
+  tasks:
+    - name: "Print the value for {{ inventory_hostname }}"
+      ansible.builtin.debug:
+        msg: >
+          {{ inventory_hostname }} = {{ floor_level }}
+
+# time ansible-playbook test_facts.yml

@@ -1,0 +1,6 @@
+collections:
+  - name: /build/traffic-rail-1.0.0.tar.gz
+    type: file
+
+  - name: /build/cisco-catalystwan-0.3.2.tar.gz
+    type: file

@@ -1,1 +1,2 @@
 floor_level: "Level 5 Playbook group_vars/all"
+test_var_level: "Test Level 5 Inventory group_vars/all"

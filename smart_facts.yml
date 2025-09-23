@@ -1,0 +1,27 @@
+- name: Variable Demo
+  hosts: servera*
+  gather_facts: true
+  vars_files:
+    - ./vars/outside_vars.yml
+
+  tasks:
+    - name: "Print the value for {{ inventory_hostname }}"
+      ansible.builtin.debug:
+        msg: >
+          {{ inventory_hostname }} = {{ floor_level }}
+          {{ ansible_distribution }}
+
+# time ansible-playbook test_facts.yml
+
+- name: Print Facts
+  hosts: servera*
+  gather_facts: false
+  vars_files:
+    - ./vars/outside_vars.yml
+
+  tasks:
+    - name: "Print the value for {{ inventory_hostname }}"
+      ansible.builtin.debug:
+        msg: >
+          {{ ansible_facts['architecture'] }} = {{ floor_level }}
+          {{ ansible_default_ipv4['address'] }}

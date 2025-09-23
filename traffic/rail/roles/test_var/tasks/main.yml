@@ -1,0 +1,6 @@
+---
+# tasks file for test_var
+#
+- name: Print ROLE Task Variable
+  ansible.builtin.debug:
+    msg: "{{ inventory_hostname }} = {{ test_var_level }}"

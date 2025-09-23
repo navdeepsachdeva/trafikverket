@@ -1,0 +1,10 @@
+---
+# handlers file for info_server
+
+- name: Collect_Info_sleep
+  ansible.builtin.debug:
+    msg: "Enough Sleep in info_server Role"
+
+- name: Collect_Info_collcted
+  ansible.builtin.debug:
+    msg: "System Info Collcted via template"

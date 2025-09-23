@@ -1,0 +1,17 @@
+---
+# tasks file for info_server
+
+
+- name: Collect Info Sleep
+  ansible.builtin.shell:
+    cmd: sleep 2
+  notify:
+    - Collect_Info_sleep
+
+- name: Deploy System App Page
+  ansible.builtin.template:
+    src: simple.j2
+    dest: "{{ info_server_path }}/{{ info_server_file }}"
+    mode: "0644"
+  notify:
+    - Collect_Info_collcted

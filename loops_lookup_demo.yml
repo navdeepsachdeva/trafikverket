@@ -1,0 +1,86 @@
+- name: Loops & Lookup Plugin Demo
+  hosts: servera*
+  gather_facts: true
+  vars_files:
+    - vars/outside_vars.yml
+  tasks:
+    - name: Simple User List
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ lookup('ansible.builtin.list', simple_list) }}"
+      #with_items: "{{ simple_list }}"
+      # loop: "{{ simple_list }}"
+
+    - name: Complex User List
+      ansible.builtin.debug:
+        msg: "{{ item.fn }} == {{ item['ln'] }}"
+      loop: "{{ lookup('ansible.builtin.list', complex_list) }}"
+      # with_list: "{{ complex_list }}"
+      # loop: "{{ complex_list }}"
+
+    - name: Dictionary User List
+      ansible.builtin.debug:
+        msg: "{{ item['key'] }} // {{ item['value'] }}"
+      loop: "{{ lookup('ansible.builtin.dict', dict_user_list) }}"
+      # with_dict: "{{ dict_user_list }}"
+      # loop: "{{ dict_user_list | dict2items }}"
+
+    - name: Print Sequence
+      ansible.builtin.debug:
+        msg: "{{ query('ansible.builtin.sequence', 'start=0 end=4 format=eth%x') }}"
+        # msg: "{{ lookup('ansible.builtin.sequence', 'start=0 end=4 format=eth%x') }}"
+
+    - name: Setup IP Address
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ q('ansible.builtin.sequence', 'start=0 end=4 format=eth%x') }}"
+      # with_sequence: start=0 end=4 format=eth%x
+
+    - name: Show files in Folder
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ query('ansible.builtin.fileglob','tasks/*') }}"
+      # with_fileglob:
+      #  - "tasks/*"
+
+    - name: Read Content of file
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file','/etc/passwd') }}"
+      # with_file:
+      #   - vars/dynamic_vars.yml
+      #   - /etc/passwd
+
+
+    - name: Read Content of file line by line
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ q('ansible.builtin.lines','cat /etc/passwd') }}"
+      # with_lines:
+      #  - "cat /etc/passwd"
+
+    - name: Show ENV
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ q('ansible.builtin.env','HOME','PATH') }}"
+      # with_env:
+      #   - "HOME"
+      #   - "PATH"
+      #   - "PWD"
+      #   - "TERM"
+      #   - "HOSTNAME"
+
+    - name: Print Template before Deploy
+      ansible.builtin.debug:
+        msg: "{{ q('ansible.builtin.template','j2/simple.j2') }}"
+
+    # - name: Deploy System App Page
+    #   ansible.builtin.template:
+    #     src: ./j2/simple.j2
+    #     dest: /var/www/html/info.html
+    #     mode: "0644"
+    - name: Create Users with RANDOM Passwords
+      ansible.builtin.user:
+        name: "{{ item | lower }}"
+        password: "{{ lookup('ansible.builtin.password', 'passwords/{{ item | lower }}.txt chars=ascii_letters,digits length=10 encrypt=sha512_crypt' ) }}"
+      become: true
+      loop: "{{ lookup('ansible.builtin.list', simple_list) }}"

@@ -1,0 +1,71 @@
+- name: Forks and Serial Demo/  rolling updates / CI-CD Config
+  hosts: control,dev
+  gather_facts: false
+  serial: 2
+  tasks:
+    # - name: print 1
+    #   ansible.builtin.debug:
+    #     var: groups["control"]
+    #   run_once: true
+    #   register: groups_control
+
+    # - name: print 1
+    #   ansible.builtin.debug:
+    #     var: groups["dev"]
+    #   run_once: true
+    #   register: groups_dev
+    # - name: pp
+    #   ansible.builtin.debug:
+    #     msg: "{{ groups_control['groups[\"control\"]'] }}"
+    #   run_once: true
+    #     
+    #   
+    # - name: Take down device from LB
+    #   # ansible.builtin.command: sleep 2
+    #   ansible.builtin.debug:
+    #     msg: "{{ item[0] }} // {{ item[1] }} }} "
+    #     # msg: "{{ item }} // {{ groups_dev['groups[\"dev\"]'][i] }} -- {{ i }}"
+    #   # loop: "{{ groups_control['groups[\"control\"]'] }}"
+    #   with_nested:
+    #     - "{{ groups_control['groups[\"control\"]'] }}"
+    #     - "{{ groups_dev['groups[\"dev\"]'] }}"
+    #   run_once: true
+    #   # loop_control:
+      #   index_var: i
+
+
+    # - name: Create a List
+    #   set_fact:
+    #     combine: |-
+    #       [
+    #       {% set count = 0 %}
+    #       {% for host in groups.control %}
+    #         {"{{ groups.control[count] }}": "{{ groups.dev[count] }}"},
+    #         {% set count = count + 1 %}
+    #       {% endfor %}
+    #       ]
+    #   loop_control:
+    #     index_var: i
+    #   run_once: true
+
+    - name: Print List
+      ansible.builtin.debug:
+        msg: "{{ combine }}"
+      run_once: true
+    # - name: Update OS
+    #   ansible.builtin.command: sleep 2
+    #   with_nested:
+    #     - inventory_hostname in groups["control"]
+    #     - inventory_hostname in groups["dev"]
+
+    # - name: Update other Config
+    #   ansible.builtin.command: sleep 2
+    #   with_nested:
+    #     - inventory_hostname in groups["control"]
+    #     - inventory_hostname in groups["dev"]
+
+    # - name: Put device back to LB
+    #   ansible.builtin.command: sleep 2
+    #   with_nested:
+    #     - inventory_hostname in groups["control"]
+    #     - inventory_hostname in groups["dev"]

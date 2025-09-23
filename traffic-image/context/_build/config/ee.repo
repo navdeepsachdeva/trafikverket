@@ -1,0 +1,5 @@
+[rhel-8-EE-rpms]
+baseurl = https://utility.lab.example.com/ee/rpms
+enabled = true
+gpgcheck = false
+name = RPMs for building custom automation execution environments

@@ -1,4 +1,7 @@
 floor_level: "Level 14 Play vars_files"
+test_var_level: "TEST Level 14 Play vars"
+# test_var_level: "CHANGE_ME"
+
 packages:
   - vsftpd
   - httpd

@@ -1,0 +1,5 @@
+---
+# defaults file for info_server
+
+info_server_path: /tmp
+info_server_file: info.html

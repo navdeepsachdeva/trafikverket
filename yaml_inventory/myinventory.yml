@@ -1,0 +1,37 @@
+
+all:
+  hosts:
+    git.lab.example.com: {}
+  vars:
+    floor_level: "Level 3 Inventory file ALL"
+    test_var_level: "TEST Level 3 Inventory file ALL"
+
+control:
+  hosts:
+    workstation.lab.example.com: {}
+
+dev:
+  hosts:
+    servera.lab.example.com: {}
+    serverb.lab.example.com:
+      floor_level: "Level 8 Inventory file ServerB ONLY"
+      test_var_level: "TEST 8 Inventory file ServerB ONLY"
+
+
+test:
+  hosts:
+    serverc.lab.example.com: {}
+    utility.lab.example.com:
+      somevar: "Test Utility Value ONLY"
+  vars:
+    somevar: "Test Group Value"
+    # ansible_become: true
+
+prod:
+  hosts:
+    serverd.lab.example.com: {}
+
+pre_prod:
+  children:
+    dev: {}
+    test: {}

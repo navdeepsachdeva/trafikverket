@@ -1,1 +1,2 @@
 floor_level: "Level 10 Playbook host_vars/* SERVER_B"
+test_var_level: "TEST Level 10 Playbook host_vars/* SERVER_B ONLY"

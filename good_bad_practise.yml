@@ -1,0 +1,31 @@
+- name: Loops Demo
+  hosts: servera*
+  gather_facts: false
+  vars_files:
+    - vars/outside_vars.yml
+  tasks:
+
+    - name: Install Multiple Package
+      ansible.builtin.dnf:
+        name: "{{ packages }}"
+          # - httpd
+          # - vsftpd
+        # name: "{{ item }}"
+        state: present
+      register: myout
+      # loop: "{{ packages }}"
+      become: true
+
+    - name: Print Captured Output
+      ansible.builtin.debug:
+        msg: "{{ myout }}"
+
+    - name: Start Multiple Service
+      ansible.builtin.service:
+        name: "{{ item }}"
+        # name: "{{ services }}"
+        state: started
+      loop: "{{ services }}"
+      # when: myout.changed == true
+      become: true
+# loops were introduced in ANsible 2.5

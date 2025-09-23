@@ -34,7 +34,7 @@
     - name: Import/Include a Role
       # ansible.builtin.import_role:
       ansible.builtin.include_role:
-        name: info_server
+        name: test_var
       when: meme is not defined
 
 
@@ -70,3 +70,4 @@
     - name: services_up
       ansible.builtin.debug:
         msg: "Instragram UP Start Wasting Time"
+# callbacks_whitelist=ansible.posix.profile_tasks

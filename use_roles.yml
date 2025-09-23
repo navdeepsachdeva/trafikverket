@@ -1,6 +1,7 @@
 - name: Roles Demo
   hosts: servera*
   gather_facts: true
+  # remote_user: root
   # become: true
   roles:
     - role: web_server

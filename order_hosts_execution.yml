@@ -1,0 +1,10 @@
+- name: Hosts Order Execution Demo
+  hosts: all
+  gather_facts: false
+  order: reverse_sorted
+  tasks:
+    - name: Task 1
+      ansible.builtin.command: sleep 2
+
+    - name: Task 2
+      ansible.builtin.command: sleep 2

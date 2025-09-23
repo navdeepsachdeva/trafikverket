@@ -1,0 +1,10 @@
+---
+# handlers file for security_server
+
+- name: security_pack_installed
+  ansible.builtin.debug:
+    msg: "{{ security_server_package }} installed Success"
+
+- name: security_port_opened
+  ansible.builtin.debug:
+    msg: "{{ security_server_port }} port opening is success"

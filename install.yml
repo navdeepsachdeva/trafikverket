@@ -3,6 +3,7 @@
     - servera*
     - serverb*
   gather_facts: false
+  # become: true
   tasks:
     - name: Create a file with Content NORMAL
       ansible.builtin.copy:

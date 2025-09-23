@@ -10,6 +10,9 @@ ansible-navigator:
     container-engine: podman
     enabled: true
     image: aap.lab.example.com/ee-supported-rhel8
+    environment-variables:
+      set:
+        ANSIBLE_PIPELINING: true
     pull:
       policy: missing
   mode: stdout

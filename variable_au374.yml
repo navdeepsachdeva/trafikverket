@@ -1,0 +1,73 @@
+- name: Variable Demo
+  hosts:
+    - dev
+    - test
+  # gather_facts: true
+
+  # BAD PRACTISE
+  vars:
+    test_var_level: "TEST Level 12 Play vars"
+
+  # test_var_level Level 13 Development Level Only
+  vars_prompt:
+    - name: test_var_level
+      prompt: "Please Enter Level"
+      private: false
+
+  # Static Loading of Vars File AVOID
+  vars_files:
+    - vars/outside_vars.yml
+
+  # Static execution of Role better use include_role
+  roles:
+    - role: test_var
+
+
+  tasks:
+    - name: Dynamic Loading of Vars File
+      ansible.builtin.include_vars:
+        file: vars/dynamic_vars.yml
+      when: youme is not defined
+
+    - name: Set Vars as System FACT
+      ansible.builtin.set_fact:
+        test_var_level: "TEST Level 19 set_facts"
+      when: youme is not defined
+
+    - name: TASK 1 Outside Block
+      ansible.builtin.debug:
+        msg: "TASK1 {{ inventory_hostname }} = {{ test_var_level }}"
+
+    - name: Run a Role Based on Condition
+      ansible.builtin.include_role:
+        name: test_var
+      when: youme is not defined
+      vars:
+        test_var_level: "TEST Level 20 include_role params"
+
+    - name: Include External Task File
+      ansible.builtin.include_tasks:
+        file: tasks/external_tasks.yml
+      when: youme is not defined
+      vars:
+        test_var_level: "TEST Level 21 include params"
+
+
+    - name: Block of Tasks
+      when: youme is not defined
+      vars:
+        test_var_level: "TEST Level 16 Block vars (for tasks in block only)"
+      block:
+        - name: TASK 2 Inside Block
+          ansible.builtin.debug:
+            msg: "TASK2 {{ inventory_hostname }} = {{ test_var_level }}"
+          vars:
+            test_var_level: "TEST Level 17 TASK vars"
+
+        - name: TASK 3 Inside Block
+          ansible.builtin.debug:
+            msg: "TASK3 {{ inventory_hostname }} = {{ test_var_level }}"
+
+    - name: TASK 4 Outside Block
+      ansible.builtin.debug:
+        msg: "TASK4 {{ inventory_hostname }} = {{ test_var_level }}"

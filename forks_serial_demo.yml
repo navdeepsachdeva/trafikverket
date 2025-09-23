@@ -1,0 +1,31 @@
+- name: Forks and Serial Demo/  rolling updates / CI-CD Config
+  hosts: all
+  gather_facts: false
+  # serial: 7
+  max_fail_percentage: 35
+  serial:
+    - 10%
+    - 30%
+    - 50%
+    - 100%
+  vars:
+    myhosts:
+      - serverd.lab.example.com
+      - servera.lab.example.com
+  tasks:
+    - name: is database OK
+      ansible.builtin.command: sleep 2
+      run_once: true
+
+    - name: Take down device from LB
+      ansible.builtin.command: sleep 2
+
+    - name: Update OS
+      ansible.builtin.command: sleep 2
+      failed_when: inventory_hostname in myhosts
+
+    - name: Update other Config
+      ansible.builtin.command: sleep 2
+
+    - name: Put device back to LB
+      ansible.builtin.command: sleep 2
