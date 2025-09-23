@@ -1,8 +1,27 @@
-- name: Forks and Serial Demo/  rolling updates / CI-CD Config
-  hosts: control,dev
-  gather_facts: false
-  serial: 2
+- name: Dynamic List
+  hosts: localhost
+  gather_facts: true
   tasks:
+    - name: Print List
+      ansible.builtin.set_fact:
+        mylist: "{{ groups['control'] | zip(groups.dev) | zip(groups.test) | flatten }}"
+
+    - name: Print
+      ansible.builtin.debug: 
+        msg: "{{ mylist }}"
+      #   msg: "{{ item }}"
+      # loop: "{{ mylist }}"
+
+- name: Run on selected Hosts
+  hosts: "{{ hostvars['localhost']['mylist'] }}"
+  gather_facts: false
+  serial: 3
+  tasks:
+    - name: run
+      ansible.builtin.command: sleep 2
+
+
+      #run_once: true
     # - name: print 1
     #   ansible.builtin.debug:
     #     var: groups["control"]
@@ -48,10 +67,6 @@
     #     index_var: i
     #   run_once: true
 
-    - name: Print List
-      ansible.builtin.debug:
-        msg: "{{ combine }}"
-      run_once: true
     # - name: Update OS
     #   ansible.builtin.command: sleep 2
     #   with_nested:

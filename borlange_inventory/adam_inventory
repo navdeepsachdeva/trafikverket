@@ -22,6 +22,7 @@ serverb.lab.example.com floor_level="Level 8 Inventory file ServerB ONLY" test_v
 [test]
 serverc.lab.example.com
 utility.lab.example.com somevar="Test Utility Value ONLY"
+git.lab.example.com
 # Web_Stockholm ansible_host=serverc.lab.example.com
 
 [test:vars]
