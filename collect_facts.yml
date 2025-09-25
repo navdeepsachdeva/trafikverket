@@ -1,0 +1,3 @@
+- name: Collect Facts for Controller
+  hosts: all
+  gather_facts: true

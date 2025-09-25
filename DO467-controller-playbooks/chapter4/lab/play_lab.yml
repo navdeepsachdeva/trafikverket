@@ -1,0 +1,131 @@
+- name: Tower Machine Credentials Role Playbook
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: Run Lab script
+    import_tasks: lab_script.yml
+
+  - name: Import Project from Git Repository
+    tower_project:
+      name: "My Webservers TEST"
+      description: "Test Webservers Project"
+      organization: "Default"
+      scm_type: "git"
+      scm_url: "ssh://git.lab.example.com/var/opt/gitlab/git-data/repositories/git/my_webservers_TEST.git"
+      scm_credential: "student-git"
+      scm_update_on_launch: true
+      scm_update_cache_timeout: 30
+      state: "present"
+      tower_config_file: "{{ tower_credential_file }}"
+    register: git_project_source
+ 
+  - name: Print Git Project Information
+    debug:
+      var: git_project_source
+ 
+ 
+ 
+ 
+  - name: Add user and update role to Developers team via tower_role
+    tower_role:
+      project: "My Webservers TEST"
+      team: "Developers"
+      role: "{{ item }}" 
+      state: "present"
+      tower_config_file: "{{ tower_credential_file }}"
+    loop:
+      - use
+      - update
+
+
+
+
+  #- name: Add Job Template via command Line
+  #  shell: >
+  #          tower-cli job_template create
+  #          --name "DEV webservers setup" 
+  #          --credential "Developers" --job-type "run"
+  #          --description "Setup apache on DEV webservers" 
+  #          --inventory "Dev" --playbook "apache-setup.yml"
+  #          --become-enabled true  --project "My Webservers DEV"
+  #          --tower-host "tower.lab.example.com" --tower-username "admin"
+  #          --tower-password "redhat" --insecure
+
+  #- name: Assign permissions (role) to Developers Team
+  #  shell: > 
+  #          tower-cli role grant 
+  #          --team 'Developers' --job-template "DEV webservers setup"  
+  #          --type 'admin'
+  #          --tower-host "tower.lab.example.com" --tower-username "admin" 
+  #          --tower-password "redhat" --insecure
+
+  - name: Create Job template via tower_job_template module
+    tower_job_template:
+      name: "TEST webservers setup"
+      description: "Setup apache on TEST webservers"
+      job_type: "run"
+      inventory: "Test"
+      project: "My Webservers TEST"
+      playbook: "apache-setup.yml"
+      credential: "Operations"
+      become_enabled: "true"
+      state: "present"
+      #survey_enabled: ""
+      #survey_spec: ""
+      tower_config_file: "{{ tower_credential_file }}"
+    register: job_template_output
+  
+  - name: Print job_template_output
+    debug:
+      var: job_template_output
+
+  - name: Assign permissions (role) to "TEST webservers setup" template
+    tower_role:
+      job_template: "TEST webservers setup"
+      team: "Developers"
+      role: "execute"
+      state: "present"
+      tower_host: "tower.lab.example.com"
+      tower_username: "admin"
+      tower_password: "redhat"
+      validate_certs: false
+
+
+
+
+
+  - name: Launch Job 
+    tower_job_launch:
+      job_template: "TEST webservers setup"
+      tower_host: "tower.lab.example.com"
+      tower_username: "david"
+      tower_password: "redhat123"
+      validate_certs: false
+    register: job_output
+   
+  ####   Check Job ID and other information  
+   
+  - name: Print job status
+    debug:
+      var: job_output
+   
+  #### Wait and Monitor status of previous launched job
+   
+  - name: Wait for job max 120s
+    tower_job_wait:
+      job_id: "{{ job_output.id }}"
+      timeout: 120
+      tower_host: "tower.lab.example.com"
+      tower_username: "daniel"
+      tower_password: "redhat123"
+      validate_certs: false
+    register: check_status
+   
+  ####   Check Final Status of Job and Time taken to execute 
+   
+  - name: Job Status Information
+    debug:
+      msg: "Time Taken = {{ check_status.elapsed }}    Job ID = {{ check_status.id }}   Job Status = {{ check_status.status }}"
+  
+

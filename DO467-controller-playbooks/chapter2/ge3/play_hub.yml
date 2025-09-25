@@ -1,0 +1,43 @@
+- name: Creating and Managing Users and Groups in Private Automation Hub (Guided Exercise 79)
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars_hub.yml
+  tasks:
+  - name: Create Group Developers
+    infra.ah_configuration.ah_group:
+      name: "{{ item }}"
+      state: present
+      ah_host: https://hub.lab.example.com
+      ah_username: admin
+      ah_password: redhat
+      validate_certs: false
+    loop: "{{ hub_groups }}"
+
+  - name: Ensure the Developers 
+    # infra.ah_configuration.ah_role:
+    infra.ah_configuration.ah_group_perm:
+      name: "{{ item.name }}"
+      perms: "{{ item.permissions }}"
+      state: present
+      ah_host: https://hub.lab.example.com
+      ah_username: admin
+      ah_password: redhat
+      validate_certs: false
+    loop: "{{ hub_group_permissions }}"
+
+  - name: Create User
+    infra.ah_configuration.ah_user:
+      username: "{{ item.user_name }}"
+      first_name: "{{ item.first_name }}"
+      last_name: "{{ item.last_name }}"
+      email: "{{ item.user_email }}"
+      password: "{{ item.password }}"
+      is_superuser: "{{ item.superuser }}"
+      groups: "{{ item.groups | default(null) }}"
+      state: present
+      ah_host: https://hub.lab.example.com
+      ah_username: admin
+      ah_password: redhat
+      validate_certs: false
+    loop: "{{ hub_users }}"

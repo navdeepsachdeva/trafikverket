@@ -1,0 +1,19 @@
+- name: Survey Demo
+  hosts: all
+  gather_facts: false
+  
+  # Development Level Only Level 13
+  # vars_prompt:
+  #   - name: your_name
+  #     prompt: "Enter your name"
+  #     private: false
+  #   - name: your_name
+  #     prompt: "Enter your Fav Color"
+  #     private: false
+
+  tasks:
+    - name: "Print the value for {{ inventory_hostname }}"
+      ansible.builtin.debug: 
+        msg: >
+          {{ inventory_hostname }} = {{ ansible_default_ipv4['address'] }}
+          {{ your_name }} == {{ fav_place }}

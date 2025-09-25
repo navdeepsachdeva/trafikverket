@@ -1,0 +1,56 @@
+- name: Guided Exercise -- Creating and Managing Automation Controller Users
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+  - vars_users.yml
+
+  tasks:
+  # - name: Create User via asset file
+  #   ansible.controller.import:
+  #     assets: "{{ lookup('file','smart.yml') | from_yaml() }}"
+  #     controller_config_file: "./controller_cli.cfg"
+
+  - name: Create user via tower_user module
+    ansible.controller.user: 
+      username: "simon"
+      password: "redhat123"
+      email: "simon@lab.example.com"
+      first_name: "Simon"
+      last_name: "Stephens"
+      state: present
+      superuser: true
+      #controller_host: https://controller.lab.example.com
+      #controller_password: redhat
+      #controller_username: admin
+      #validate_certs: false
+      controller_config_file: "./controller_cli.cfg"
+   
+  #- name: Create user via tower_cli command
+  #  shell: >
+  #            awx user create 
+  #            --username "sam" --password "redhat123" --email "sam@lab.example.com"
+  #            --first-name "Sam" --last-name "Simons"  
+  #            --conf.host https://controller.lab.example.com 
+  #            --conf.username admin --conf.password redhat --conf.insecure
+
+##awx   --conf.host https://controller.lab.example.com --conf.username admin --conf.password redhat --conf.insecure user delete sylvia
+#
+  - name: Create User via asset file
+    ansible.controller.import:
+      assets: "{{ lookup('ansible.builtin.file','asset_user_sylvia.yml') | from_yaml() }}"
+      controller_config_file: "./controller_cli.cfg"
+
+## awx   --conf.host https://controller.lab.example.com --conf.username admin --conf.password redhat --conf.insecure users create  --username sylvia --first_name Sylvia --last_name Simons --email sylvia@lab.example.com --is_superuser false --is_system_auditor true --password redhat
+
+  - name: Add tower users
+    ansible.controller.user:
+      username: "{{ item.username }}"
+      password: "{{ item.password }}"
+      email: "{{ item.email }}"
+      first_name: "{{ item.first_name }}"
+      last_name: "{{ item.last_name }}"
+      state: "{{ item.state  }}"
+      superuser: "{{ item.superuser }}"
+      auditor: "{{ item.auditor }}"
+      controller_config_file: "./controller_cli.cfg"
+    loop: "{{ users_info }}"

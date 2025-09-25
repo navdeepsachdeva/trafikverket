@@ -1,0 +1,8 @@
+download_url: https://hub.lab.example.com/api/galaxy/v3/plugin/ansible/content/published/collections/artifacts/community-mysql-3.1.1.tar.gz
+format_version: 1.0.0
+name: mysql
+namespace: community
+server: https://hub.lab.example.com/api/galaxy/content/published/
+signatures: []
+version: 3.1.1
+version_url: /api/galaxy/content/published/v3/plugin/ansible/content/published/collections/index/community/mysql/versions/3.1.1/

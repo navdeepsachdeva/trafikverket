@@ -1,0 +1,10 @@
+users:
+- email: sylvia@lab.example.com
+  first_name: Sylvia
+  last_name: Simons
+  is_superuser: false
+  is_system_auditor: true
+  username: sylvia
+  natural_key:
+    type: user
+    username: sylvia

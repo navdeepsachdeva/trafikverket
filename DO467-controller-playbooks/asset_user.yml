@@ -1,0 +1,17 @@
+users:
+- email: jephin@qatar.com
+  first_name: jephin
+  is_superuser: true
+  is_system_auditor: false
+  last_name: P
+  natural_key:
+    type: user
+    username: jephin
+  related:
+    roles:
+    - content_object:
+        name: sogei SPA
+        type: organization
+      name: Member
+      type: role
+  username: jephin

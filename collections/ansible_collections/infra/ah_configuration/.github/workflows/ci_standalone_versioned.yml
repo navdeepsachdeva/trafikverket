@@ -1,0 +1,91 @@
+---
+name: Test roles and modules with galaxy_ng
+
+on:
+  workflow_call:
+    inputs:
+      galaxy_ng_version:
+        description: The version to pull of galaxy_ng
+        required: true
+        type: string
+      gh_ref:
+        description: The ref in the repository to pull
+        required: false
+        default: devel
+        type: string
+    secrets:
+      redhat_catalog_username:
+        description: Username for Red Hat Catalog
+        required: true
+      redhat_catalog_password:
+        description: Password for Red Hat Catalog
+        required: true
+
+jobs:
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.gh_ref }}
+
+      - name: "Checkout galaxy_ng"
+        uses: actions/checkout@v2
+        with:
+          repository: ansible/galaxy_ng
+          path: galaxy_ng
+          ref: ${{ inputs.galaxy_ng_version }}
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+
+      - name: Update apt
+        run: sudo apt -y update
+
+      - name: Spin up a standalone galaxy_ng installation
+        working-directory: galaxy_ng
+        run: |
+          echo "COMPOSE_PROFILE=standalone" > .compose.env
+          echo "DEV_SOURCE_PATH=galaxy_ng" >> .compose.env
+          make docker/all
+          ./compose up -d
+          pip3 install --upgrade requests pyyaml
+          python3 dev/common/poll.py
+
+      - name: give stack some time to spin up
+        run: sleep 240
+
+      - name: Move ansible.cfg to root
+        run: mv .github/files/ansible.cfg .
+
+      - name: Build and install the collection
+        id: build
+        uses: redhat-cop/ansible_collections_tooling/actions/build_ansible_collection@main
+        with:
+          collection_namespace: infra
+          collection_name: ah_configuration
+          collection_version: 1.0.0
+          collection_repo: https://github.com/ansible/galaxy_collection
+
+      - name: "Perform playbook collection tests"
+        run: ansible-playbook tests/playbooks/testing_collections_playbook.yml -v -e galaxy_ng_version=${{ inputs.galaxy_ng_version }} -e git_repo_name=${{ github.event.repository.name }}
+        if: |
+          inputs.galaxy_ng_version == 'stable-4.4' ||
+          inputs.galaxy_ng_version == 'stable-4.5' ||
+          inputs.galaxy_ng_version == 'stable-4.6' ||
+          inputs.galaxy_ng_version == 'stable-4.7'
+
+      - name: "Perform collection repository tests"
+        run: ansible-playbook tests/playbooks/testing_collections_repos.yml -v -e galaxy_ng_version=${{ inputs.galaxy_ng_version }}
+
+      - name: "Perform playbook namespace tests"
+        run: ansible-playbook tests/playbooks/testing_playbook_ee_namespace.yml -v -e galaxy_ng_version=${{ inputs.galaxy_ng_version }}
+        if: ${{ inputs.galaxy_ng_version == 'stable-4.4' || inputs.galaxy_ng_version == 'stable-4.5'  }}  # ee_namespace APIs were removed in 4.6 (see #183)
+
+      - name: "Perform playbook repository tests"
+        run: ansible-playbook tests/playbooks/testing_playbook_ee_repository.yml -vv -e galaxy_ng_version=${{ inputs.galaxy_ng_version }} -e redhat_catalog_username=${{ secrets.redhat_catalog_username }} -e redhat_catalog_password=${{ secrets.redhat_catalog_password }}
+
+      - name: "Perform playbook user and group management tests"
+        run: ansible-playbook tests/playbooks/testing_playbook_user.yml -v -e galaxy_ng_version=${{ inputs.galaxy_ng_version }}

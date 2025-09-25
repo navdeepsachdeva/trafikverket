@@ -1,0 +1,39 @@
+users_info:
+  - username: "oliver"
+    password: "redhat123"
+    email: "oliver@lab.example.com"
+    first_name: "Oliver"
+    last_name: "Stone"
+    state: present
+
+  - username: "ophelia"
+    password: "redhat123"
+    email: "ophelia@lab.example.com"
+    first_name: "Ophelia"
+    last_name: "Dunham"
+    state: present
+
+
+users_team_association_info:
+  - name: "oliver" 
+    team: "Operations"
+    role: "member"
+    state: present
+
+  - name: "ophelia" 
+    team: "Operations"
+    role: "admin"
+    state: present
+
+hub_groups:
+  - Container Developers
+   
+hub_users:
+  - user_name: carlos
+    first_name: Carlos
+    last_name: Cortez
+    user_email: carlos@lab.example.com
+    password: redhat123
+    groups:
+    - "Container Developers"
+    superuser: false

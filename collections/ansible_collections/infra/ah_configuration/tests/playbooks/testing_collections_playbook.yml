@@ -1,0 +1,139 @@
+---
+- name: Testing Galaxy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+    - infra.ah_configuration
+  pre_tasks:
+    - name: Include vars from ah_configs directory
+      ansible.builtin.include_vars:
+        dir: ./ah_configs
+        extensions: ["yml"]
+      tags:
+        - always
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ ah_configuration_working_dir }}"
+        state: directory
+        mode: '0755'
+
+  tasks:
+    - name: Authenticate and get an API token
+      ah_token:
+        ah_host: "{{ ah_hostname }}"
+        ah_username: "{{ ah_username }}"
+        ah_password: "{{ ah_password }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+
+    - name: Create ansible config file
+      ansible.builtin.include_role:
+        name: ansible_config
+
+    - name: Create namespace
+      ansible.builtin.include_role:
+        name: namespace
+
+    - name: Rename namespace
+      ansible.builtin.include_role:
+        name: namespace
+      vars:
+        ah_namespaces:
+          - name: test_namespace
+            new_name: test_namespace_renamed
+
+    - name: Delete renamed namespace
+      ansible.builtin.include_role:
+        name: namespace
+      vars:
+        ah_namespaces:
+          - name: test_namespace_renamed
+            state: absent
+
+    - name: Upload Collection
+      ansible.builtin.include_role:
+        name: collection
+
+    - name: Overwrite Collection
+      ansible.builtin.include_role:
+        name: collection
+      vars:
+        ah_collections: "{{ ah_collections_overwrite }}"
+
+    - name: Publish Collections
+      ansible.builtin.include_role:
+        name: publish
+      vars:
+        ah_collections: "{{ ah_git_collections }}"
+
+    - name: Remove collection
+      ah_collection:
+        namespace: ansible
+        name: automation_hub
+        version: 0.9.2
+        state: absent
+        ah_host: "{{ ah_hostname }}"
+        ah_token: "{{ ah_token }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+
+    - name: Add EE Registry
+      ah_ee_registry:
+        name: myreg
+        url: https://registry.redhat.io
+        ah_host: "{{ ah_hostname }}"
+        ah_username: "{{ ah_username }}"
+        ah_password: "{{ ah_password }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+
+    - name: Download Tower tarball
+      ansible.builtin.get_url:
+        url: https://galaxy.ansible.com/download/infra-controller_configuration-2.4.0.tar.gz
+        dest: "{{ playbook_dir }}/infra-controller_configuration-2.4.0.tar.gz"
+        mode: '0440'
+
+    - name: Upload Tower collection to automation hub
+      ah_collection_upload:
+        path: "{{ playbook_dir }}/infra-controller_configuration-2.4.0.tar.gz"
+        wait: true
+        ah_host: "{{ ah_hostname }}"
+        ah_token: "{{ ah_token }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+
+    - name: Verify setting request_timeout to high will work
+      ah_namespace:
+        name: to_not_work
+        request_timeout: 100
+        ah_host: "{{ ah_hostname }}"
+        ah_token: "{{ ah_token }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+
+    - name: Verify setting request_timeout to very low will fail
+      ah_namespace:
+        name: to_not_work
+        request_timeout: 0.01
+        ah_host: "{{ ah_hostname }}"
+        ah_token: "{{ ah_token }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+      register: request_timout_test
+      ignore_errors: true
+
+    - name: Assert previous failed
+      ansible.builtin.assert:
+        that:
+          - request_timout_test is failed
+
+    - name: Deauthenticate
+      ah_token:
+        ah_host: "{{ ah_hostname }}"
+        ah_token: "{{ ah_token }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+        state: absent
+...

@@ -1,0 +1,43 @@
+- name: Tower Team Users Role Playbook
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+  - name: Create a valid Git SCM credential
+    ansible.controller.credential:
+      name: "Student Git Credential"
+      organization: "Default"
+      description: "Student Git Credential"
+      state: "present"
+      credential_type: "Source Control"
+      inputs:
+        username: "git"
+        ssh_key_data: "{{ lookup('file', 'gitlab_rsa') }}"
+      controller_config_file: "./controller_cli.cfg"
+
+  - name: Import Project from Git Repository
+    ansible.controller.project:
+      name: "My Webservers DEV"
+      description: "Development Webservers Project"
+      organization: "Default"
+      scm_type: "git"
+      scm_url: "git@git.lab.example.com:git/my_webservers_DEV.git"
+      scm_credential: "Student Git Credential" 
+      state: "present"
+      controller_config_file: "./controller_cli.cfg"
+    register: git_project_source
+
+  - name: Print Git Project Information
+    debug:
+      var: git_project_source
+
+
+
+
+  - name: Add admin role to Operations team via tower_role
+    ansible.controller.role:
+      project: "My Webservers DEV"
+      team: "Developers"
+      role: "admin"
+      state: "present"
+      controller_config_file: "./controller_cli.cfg"

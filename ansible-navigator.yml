@@ -9,7 +9,8 @@ ansible-navigator:
   execution-environment:
     container-engine: podman
     enabled: true
-    image: aap.lab.example.com/ee-supported-rhel8
+    image: hub.lab.example.com/ee-supported-rhel8
+    # image: aap.lab.example.com/ee-supported-rhel8
     environment-variables:
       set:
         ANSIBLE_PIPELINING: true

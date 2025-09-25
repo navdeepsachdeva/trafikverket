@@ -1,0 +1,29 @@
+  description: ''
+  name: 'Survey via Playbook'
+  spec:
+  - choices: ''
+    default: UNKNOWN
+    max: 10
+    min: 4
+    new_question: true
+    question_description: Enter Your Name
+    question_name: Enter Your Name
+    required: true
+    type: text
+    variable: user_name
+  - choices: 'Red
+
+      Blue
+
+      Yellow
+
+      Green'
+    default: Green
+    max: 1024
+    min: 0
+    new_question: true
+    question_description: Enter Fav Color
+    question_name: Enter Fav Color
+    required: true
+    type: multiplechoice
+    variable: fav_color

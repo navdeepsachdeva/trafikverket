@@ -1,0 +1,57 @@
+hub_groups:
+  - Developers
+  - Image Managers
+  - Operations
+
+hub_group_permissions:
+  - name: Developers
+    permissions:
+        - add_namespace
+        - change_namespace
+        - upload_to_namespace
+        - delete_namespace
+        - modify_ansible_repo_content
+        - delete_collection
+        - change_containernamespace_perms
+        - change_container
+        - change_image_tag
+        - create_container
+        - push_container
+        - delete_containerrepository
+  - name: Image Managers
+    permissions:
+        - change_container
+        - change_image_tag
+        - create_container
+        - push_container
+        - delete_containerrepository
+  - name: Operations
+    permissions: []
+
+
+hub_users:
+  - user_name: daniel
+    first_name: Daniel
+    last_name: George
+    user_email: daniel@lab.example.com
+    password: redhat123
+    groups:
+    - Developers
+    superuser: false
+
+  - user_name: oliver
+    first_name: Oliver
+    last_name: Stone
+    user_email: oliver@lab.example.com
+    password: redhat123
+    groups:
+    - Operations
+    superuser: false
+
+  - user_name: simon
+    first_name: Simon
+    last_name: Stephens
+    user_email: simon@lab.example.com
+    password: redhat123
+    groups: []
+    superuser: true

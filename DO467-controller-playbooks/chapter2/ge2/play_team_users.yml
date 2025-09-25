@@ -1,0 +1,52 @@
+- name: Guided Exercise -- Managing Automation Controller Access with Teams
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+  - vars_teams.yml
+
+  tasks:
+
+  - name: Create teams in Controller
+    ansible.controller.team:
+      name: "Developers"
+      description: "Dev Team"
+      organization: "Default"
+      state: "present"
+      controller_config_file: "./controller_cli.cfg"
+
+  #- name: Add Team via command Line
+  #  shell: >
+  #          awx team create
+  #          --name "Developers" --organization "Default" --description "Dev Team"
+  #          --conf.host https://controller.lab.example.com 
+  #          --conf.username admin --conf.password redhat --conf.insecure
+
+  - name: Create user via controller user module
+    ansible.controller.user:
+      username: "{{ item.username }}"
+      password: "{{ item.password }}"
+      email: "{{ item.email }}"
+      first_name: "{{ item.first_name }}"
+      last_name: "{{ item.last_name }}"
+      state: "{{ item.state  }}"
+      controller_config_file: "./controller_cli.cfg"
+    loop: "{{ users_info }}"
+
+   
+
+  - name: Add users to appropriate team via controller role
+    ansible.controller.role:
+      user: "{{ item.name }}"
+      target_team: "{{ item.team }}"
+      role: "{{ item.role }}"
+      state: "{{ item.state }}"
+      controller_config_file: "./controller_cli.cfg"
+    loop: "{{ users_team_association_info }}"
+
+
+  ##- name: Assign user role via tower_cli command
+  ##  shell: > 
+  ##          awx role grant --user 'david' 
+  ##          --target-team 'Developers' --type 'member'
+  ##          --conf.host https://controller.lab.example.com
+  ##          --conf.username admin --conf.password redhat --conf.insecure

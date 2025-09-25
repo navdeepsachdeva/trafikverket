@@ -1,0 +1,24 @@
+{
+     "users": [
+          {
+               "username": "sylvia",
+               "first_name": "Sylvia",
+               "last_name": "Simons",
+               "email": "sylvia@lab.example.com",
+               "is_superuser": false,
+               "is_system_auditor": true,
+               "related": {
+                    "roles": [
+                         {
+                              "name": "System Auditor",
+                              "type": "role"
+                         }
+                    ]
+               },
+               "natural_key": {
+                    "username": "sylvia",
+                    "type": "user"
+               }
+          }
+     ]
+}

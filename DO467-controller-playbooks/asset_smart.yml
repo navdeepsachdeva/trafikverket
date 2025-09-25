@@ -1,0 +1,14 @@
+inventory:
+- description: FIlter Nodes via asset file
+  host_filter: ansible_facts__ansible_distribution="RedHat" and inventory=4 and ansible_facts__ansible_hostname="serverb"
+  kind: smart
+  name: extremly_smart
+  natural_key:
+    name: extremly_smart
+    organization:
+      name: sogei SPA
+      type: organization
+    type: inventory
+  organization:
+    name: sogei SPA
+    type: organization

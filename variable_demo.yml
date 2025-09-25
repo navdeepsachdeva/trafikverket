@@ -21,5 +21,5 @@
       ansible.builtin.debug:
         msg: >
           {{ inventory_hostname }} = {{ floor_level }}
-          {{ users.bjones.last_name }} {{ users['acook']['first_name'] }} {{ abc }}
+          {{ users.bjones.last_name }} {{ users['acook']['first_name'] }}
         # msg: " Current Host = {{ inventory_hostname }} {{ ansible_user }} {{ ansible_connection }} {{ ansible_host }}"

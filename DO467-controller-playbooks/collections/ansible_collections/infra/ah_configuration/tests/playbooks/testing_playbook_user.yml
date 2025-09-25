@@ -1,0 +1,205 @@
+---
+- name: Test the user and group management modules
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  collections:
+    - infra.ah_configuration
+  vars:
+    ah_hostname: http://localhost:8002/
+    ah_username: admin
+    ah_password: admin
+    ah_path_prefix: 'automation-hub'
+    ah_validate_certs: false
+  pre_tasks:
+    - name: Include vars from ah_configs directory
+      ansible.builtin.include_vars:
+        dir: ./ah_configs
+        extensions: ["yml"]
+      tags:
+        - always
+  tasks:
+    # Testing group creation
+    - name: Test group creation
+      ansible.builtin.include_role:
+        name: group
+      vars:
+        ah_groups:
+          - name: operators
+          - name: administrators
+          - name: managers
+          - name: deleteme
+
+    - name: Run 'role' role for post 4.6
+      when: galaxy_ng_version == "stable-4.6" or galaxy_ng_version == "master"
+      block:
+        - name: Test role creation
+          ansible.builtin.include_role:
+            name: role
+
+    - name: Run group role for pre-4.6
+      when: galaxy_ng_version == "stable-4.4" or galaxy_ng_version == "stable-4.5"
+      block:
+        # Testing Group creation and perms in 4.5
+        - name: Test group creation
+          ansible.builtin.include_role:
+            name: group
+          vars:
+            ah_groups:
+              - name: operators
+                perms:
+                  - view_user
+                  - view_group
+                  - view_collectionremote
+                  - upload_to_namespace
+              - name: administrators
+                perms: "*"
+              - name: managers
+                perms:
+                  - change_collectionremote
+                  - view_collectionremote
+              - name: deleteme
+                state: absent
+
+    - name: Run group role for 4.6
+      when: galaxy_ng_version == "stable-4.6"
+      block:
+        - name: Test group creation
+          ansible.builtin.include_role:
+            name: group
+          vars:
+            ah_groups:
+              - name: operators
+              - name: administrators
+              - name: managers
+              - name: deleteme
+                state: absent
+
+        - name: Test group role creation
+          ansible.builtin.include_role:
+            name: group_roles
+          vars:
+            ah_group_roles:
+              - groups:
+                  - administrators
+                  - managers
+                role_list:
+                  - roles:
+                      - galaxy.user_admin
+                      - galaxy.group_admin
+              - groups:
+                  - administrators
+                  - managers
+                state: absent
+                role_list:
+                  - roles:
+                      - galaxy.user_admin
+                      - galaxy.group_admin
+
+    - name: Run group role for post-4.7
+      when: galaxy_ng_version == "stable-4.7" or galaxy_ng_version == "master"
+      block:
+        # Testing Group creation and perms in 4.5
+        - name: Test group creation
+          ansible.builtin.include_role:
+            name: group
+          vars:
+            ah_groups:
+              - name: operators
+              - name: administrators
+              - name: managers
+              - name: deleteme
+                state: absent
+
+        - name: Test group role creation
+          ansible.builtin.include_role:
+            name: group_roles
+          vars:
+            ah_group_roles:
+              - groups:
+                  - administrators
+                  - managers
+                role_list:
+                  - roles:
+                      - galaxy.user_admin
+                      - galaxy.group_admin
+              - groups:
+                  - operators
+                  - managers
+                role_list:
+                  - roles:
+                      - galaxy.ansible_repository_owner
+                    targets:
+                      collection_repositories:
+                        - community-infra-repo
+                  - roles:
+                      - galaxy.collection_remote_owner
+                    targets:
+                      collection_remotes:
+                        - community-infra
+              - groups:
+                  - administrators
+                  - managers
+                state: absent
+                role_list:
+                  - roles:
+                      - galaxy.user_admin
+                      - galaxy.group_admin
+              - groups:
+                  - operators
+                  - managers
+                state: absent
+                role_list:
+                  - roles:
+                      - galaxy.ansible_repository_owner
+                    targets:
+                      collection_repositories:
+                        - community-infra-repo
+                  - roles:
+                      - galaxy.collection_remote_owner
+                    targets:
+                      collection_remotes:
+                        - community-infra
+
+    - name: Test User creation
+      ansible.builtin.include_role:
+        name: user
+
+    # Testing deletion
+    - name: Ensure the administrators group is deleted
+      ah_group:
+        name: administrators
+        state: absent
+        ah_host: "{{ ah_hostname }}"
+        ah_username: "{{ ah_username }}"
+        ah_password: "{{ ah_password }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+
+    - name: Ensure the users are deleted
+      ah_user:
+        username: "{{ item }}"
+        state: absent
+        ah_host: "{{ ah_hostname }}"
+        ah_username: "{{ ah_username }}"
+        ah_password: "{{ ah_password }}"
+        ah_path_prefix: "{{ ah_path_prefix }}"
+        validate_certs: "{{ ah_validate_certs }}"
+      loop:
+        - operator1
+        - admin1
+        - test123
+
+    - name: Test group deletion
+      ansible.builtin.include_role:
+        name: group
+      vars:
+        ah_groups:
+          - name: operators
+          - name: administrators
+          - name: managers
+          - name: deleteme
+          - name: foobar
+          - name: test123
+...

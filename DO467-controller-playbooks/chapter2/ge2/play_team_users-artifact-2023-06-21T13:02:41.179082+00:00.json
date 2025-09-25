@@ -1,0 +1,557 @@
+{
+    "plays": [
+        {
+            "__play_name": "Tower Team Users Role Playbook",
+            "name": "Tower Team Users Role Playbook",
+            "pattern": "localhost",
+            "play": "Tower Team Users Role Playbook",
+            "play_pattern": "localhost",
+            "play_uuid": "aae62d2c-b034-65e1-4c08-000000000007",
+            "playbook": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml",
+            "playbook_uuid": "32171c8e-4021-4db4-9770-acb4310f6e70",
+            "tasks": [
+                {
+                    "__changed": false,
+                    "__duration": "2s",
+                    "__host": "localhost",
+                    "__number": 0,
+                    "__result": "Ok",
+                    "__task": "Create teams in tower",
+                    "__task_action": "ansible.controller.team",
+                    "duration": 2.337754,
+                    "end": "2023-06-21T13:02:26.728149",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Tower Team Users Role Playbook",
+                    "play_pattern": "localhost",
+                    "play_uuid": "aae62d2c-b034-65e1-4c08-000000000007",
+                    "playbook": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml",
+                    "playbook_uuid": "32171c8e-4021-4db4-9770-acb4310f6e70",
+                    "remote_addr": "localhost",
+                    "res": {
+                        "_ansible_no_log": null,
+                        "changed": false,
+                        "id": 2,
+                        "invocation": {
+                            "module_args": {
+                                "controller_config_file": "./controller_cli.cfg",
+                                "controller_host": null,
+                                "controller_oauthtoken": null,
+                                "controller_password": null,
+                                "controller_username": null,
+                                "description": "Dev Team",
+                                "name": "Developers",
+                                "new_name": null,
+                                "organization": "Default",
+                                "state": "present",
+                                "validate_certs": null
+                            }
+                        }
+                    },
+                    "resolved_action": "ansible.controller.team",
+                    "start": "2023-06-21T13:02:24.390395",
+                    "task": "Create teams in tower",
+                    "task_action": "ansible.controller.team",
+                    "task_args": "",
+                    "task_path": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml:9",
+                    "task_uuid": "aae62d2c-b034-65e1-4c08-000000000009",
+                    "uuid": "0de20fcd-4605-49d3-b463-640a28b162f8"
+                },
+                {
+                    "__changed": true,
+                    "__duration": "7s",
+                    "__host": "localhost",
+                    "__number": 1,
+                    "__result": "Ok",
+                    "__task": "Create user via tower_user module",
+                    "__task_action": "ansible.controller.user",
+                    "duration": 7.23277,
+                    "end": "2023-06-21T13:02:33.975715",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Tower Team Users Role Playbook",
+                    "play_pattern": "localhost",
+                    "play_uuid": "aae62d2c-b034-65e1-4c08-000000000007",
+                    "playbook": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml",
+                    "playbook_uuid": "32171c8e-4021-4db4-9770-acb4310f6e70",
+                    "remote_addr": "localhost",
+                    "res": {
+                        "changed": true,
+                        "msg": "All items completed",
+                        "results": [
+                            {
+                                "_ansible_item_label": {
+                                    "email": "daniel@lab.example.com",
+                                    "first_name": "Daniel",
+                                    "last_name": "George",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "username": "daniel"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": true,
+                                "failed": false,
+                                "id": 5,
+                                "invocation": {
+                                    "module_args": {
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "email": "daniel@lab.example.com",
+                                        "first_name": "Daniel",
+                                        "is_superuser": false,
+                                        "is_system_auditor": false,
+                                        "last_name": "George",
+                                        "new_username": null,
+                                        "organization": null,
+                                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                        "state": "present",
+                                        "username": "daniel",
+                                        "validate_certs": null
+                                    }
+                                },
+                                "item": {
+                                    "email": "daniel@lab.example.com",
+                                    "first_name": "Daniel",
+                                    "last_name": "George",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "username": "daniel"
+                                }
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "email": "donnie@lab.example.com",
+                                    "first_name": "Donnie",
+                                    "last_name": "Jameson",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "username": "donnie"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": true,
+                                "failed": false,
+                                "id": 6,
+                                "invocation": {
+                                    "module_args": {
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "email": "donnie@lab.example.com",
+                                        "first_name": "Donnie",
+                                        "is_superuser": false,
+                                        "is_system_auditor": false,
+                                        "last_name": "Jameson",
+                                        "new_username": null,
+                                        "organization": null,
+                                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                        "state": "present",
+                                        "username": "donnie",
+                                        "validate_certs": null
+                                    }
+                                },
+                                "item": {
+                                    "email": "donnie@lab.example.com",
+                                    "first_name": "Donnie",
+                                    "last_name": "Jameson",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "username": "donnie"
+                                }
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "email": "david@lab.example.com",
+                                    "first_name": "David",
+                                    "last_name": "Jackobs",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "username": "david"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": true,
+                                "failed": false,
+                                "id": 7,
+                                "invocation": {
+                                    "module_args": {
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "email": "david@lab.example.com",
+                                        "first_name": "David",
+                                        "is_superuser": false,
+                                        "is_system_auditor": false,
+                                        "last_name": "Jackobs",
+                                        "new_username": null,
+                                        "organization": null,
+                                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                        "state": "present",
+                                        "username": "david",
+                                        "validate_certs": null
+                                    }
+                                },
+                                "item": {
+                                    "email": "david@lab.example.com",
+                                    "first_name": "David",
+                                    "last_name": "Jackobs",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "username": "david"
+                                }
+                            }
+                        ],
+                        "warnings": [
+                            "The field password of user 5 has encrypted data and may inaccurately report task is changed.",
+                            "The field password of user 6 has encrypted data and may inaccurately report task is changed.",
+                            "The field password of user 7 has encrypted data and may inaccurately report task is changed."
+                        ]
+                    },
+                    "resolved_action": "ansible.controller.user",
+                    "start": "2023-06-21T13:02:26.742945",
+                    "task": "Create user via tower_user module",
+                    "task_action": "ansible.controller.user",
+                    "task_args": "",
+                    "task_path": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml:24",
+                    "task_uuid": "aae62d2c-b034-65e1-4c08-00000000000a",
+                    "uuid": "47da0076-b2ec-4537-8114-6c16e20d379a"
+                },
+                {
+                    "__changed": false,
+                    "__duration": "7s",
+                    "__host": "localhost",
+                    "__number": 2,
+                    "__result": "Ok",
+                    "__task": "Add users to appropriate team via tower_role",
+                    "__task_action": "ansible.controller.role",
+                    "duration": 6.515936,
+                    "end": "2023-06-21T13:02:40.503510",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Tower Team Users Role Playbook",
+                    "play_pattern": "localhost",
+                    "play_uuid": "aae62d2c-b034-65e1-4c08-000000000007",
+                    "playbook": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml",
+                    "playbook_uuid": "32171c8e-4021-4db4-9770-acb4310f6e70",
+                    "remote_addr": "localhost",
+                    "res": {
+                        "changed": false,
+                        "msg": "All items completed",
+                        "results": [
+                            {
+                                "_ansible_item_label": {
+                                    "name": "daniel",
+                                    "role": "admin",
+                                    "state": "present",
+                                    "team": "Developers"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": false,
+                                "failed": false,
+                                "invocation": {
+                                    "module_args": {
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "credential": null,
+                                        "credentials": null,
+                                        "inventories": null,
+                                        "inventory": null,
+                                        "job_template": null,
+                                        "job_templates": null,
+                                        "lookup_organization": null,
+                                        "organization": null,
+                                        "organizations": null,
+                                        "project": null,
+                                        "projects": null,
+                                        "target_team": "Developers",
+                                        "target_teams": null,
+                                        "team": null,
+                                        "user": "daniel",
+                                        "validate_certs": null,
+                                        "workflow": null,
+                                        "workflows": null
+                                    }
+                                },
+                                "item": {
+                                    "name": "daniel",
+                                    "role": "admin",
+                                    "state": "present",
+                                    "team": "Developers"
+                                },
+                                "role": "admin"
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "name": "donnie",
+                                    "role": "read",
+                                    "state": "present",
+                                    "team": "Developers"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": false,
+                                "failed": false,
+                                "invocation": {
+                                    "module_args": {
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "credential": null,
+                                        "credentials": null,
+                                        "inventories": null,
+                                        "inventory": null,
+                                        "job_template": null,
+                                        "job_templates": null,
+                                        "lookup_organization": null,
+                                        "organization": null,
+                                        "organizations": null,
+                                        "project": null,
+                                        "projects": null,
+                                        "target_team": "Developers",
+                                        "target_teams": null,
+                                        "team": null,
+                                        "user": "donnie",
+                                        "validate_certs": null,
+                                        "workflow": null,
+                                        "workflows": null
+                                    }
+                                },
+                                "item": {
+                                    "name": "donnie",
+                                    "role": "read",
+                                    "state": "present",
+                                    "team": "Developers"
+                                },
+                                "role": "read"
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "name": "david",
+                                    "role": "member",
+                                    "state": "present",
+                                    "team": "Developers"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": false,
+                                "failed": false,
+                                "invocation": {
+                                    "module_args": {
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "credential": null,
+                                        "credentials": null,
+                                        "inventories": null,
+                                        "inventory": null,
+                                        "job_template": null,
+                                        "job_templates": null,
+                                        "lookup_organization": null,
+                                        "organization": null,
+                                        "organizations": null,
+                                        "project": null,
+                                        "projects": null,
+                                        "target_team": "Developers",
+                                        "target_teams": null,
+                                        "team": null,
+                                        "user": "david",
+                                        "validate_certs": null,
+                                        "workflow": null,
+                                        "workflows": null
+                                    }
+                                },
+                                "item": {
+                                    "name": "david",
+                                    "role": "member",
+                                    "state": "present",
+                                    "team": "Developers"
+                                },
+                                "role": "member"
+                            }
+                        ]
+                    },
+                    "resolved_action": "ansible.controller.role",
+                    "start": "2023-06-21T13:02:33.987574",
+                    "task": "Add users to appropriate team via tower_role",
+                    "task_action": "ansible.controller.role",
+                    "task_args": "",
+                    "task_path": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml:37",
+                    "task_uuid": "aae62d2c-b034-65e1-4c08-00000000000b",
+                    "uuid": "be52361d-b5f9-4c2d-9c0c-79fa269dd863"
+                }
+            ],
+            "uuid": "aae62d2c-b034-65e1-4c08-000000000007"
+        }
+    ],
+    "settings_entries": {
+        "ansible-navigator": {
+            "ansible": {
+                "cmdline": "--extra-vars ansible_python_interpreter=/usr/bin/python3",
+                "config": {
+                    "help": false
+                },
+                "doc": {
+                    "help": false,
+                    "plugin": {
+                        "type": "module"
+                    }
+                },
+                "inventory": {
+                    "entries": [
+                        "/home/student/DO467/controller-playbooks/inventory"
+                    ],
+                    "help": false
+                },
+                "playbook": {
+                    "help": false,
+                    "path": "/home/student/DO467/controller-playbooks/chapter2/ge2/play_team_users.yml"
+                }
+            },
+            "ansible-builder": {
+                "help": false,
+                "workdir": "/home/student/DO467/controller-playbooks"
+            },
+            "app": "run",
+            "collection-doc-cache-path": "/home/student/.cache/ansible-navigator/collection_doc_cache.db",
+            "color": {
+                "enable": true,
+                "osc4": true
+            },
+            "editor": {
+                "command": "vi +{line_number} {filename}",
+                "console": true
+            },
+            "exec": {
+                "command": "/bin/bash",
+                "shell": true
+            },
+            "execution-environment": {
+                "container-engine": "podman",
+                "enabled": true,
+                "image": "registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest",
+                "pull": {
+                    "policy": "missing"
+                }
+            },
+            "images": {
+                "details": [
+                    "everything"
+                ]
+            },
+            "logging": {
+                "append": true,
+                "file": "/home/student/DO467/controller-playbooks/ansible-navigator.log",
+                "level": "warning"
+            },
+            "mode": "stdout",
+            "playbook-artifact": {
+                "enable": true,
+                "save-as": "{playbook_dir}/{playbook_name}-artifact-{time_stamp}.json"
+            },
+            "settings": {
+                "effective": false,
+                "sample": false,
+                "schema": "json",
+                "sources": false
+            },
+            "time-zone": "UTC"
+        }
+    },
+    "settings_sources": {
+        "ansible-navigator.ansible-builder.help": "Defaults",
+        "ansible-navigator.ansible-builder.workdir": "Defaults",
+        "ansible-navigator.ansible-lint.config": "Not set",
+        "ansible-navigator.ansible-lint.lintables": "Not set",
+        "ansible-navigator.ansible-runner.artifact-dir": "Not set",
+        "ansible-navigator.ansible-runner.rotate-artifacts-count": "Not set",
+        "ansible-navigator.ansible-runner.timeout": "Not set",
+        "ansible-navigator.ansible.cmdline": "Command line",
+        "ansible-navigator.ansible.config.help": "Defaults",
+        "ansible-navigator.ansible.config.path": "Not set",
+        "ansible-navigator.ansible.doc.help": "Defaults",
+        "ansible-navigator.ansible.doc.plugin.name": "Not set",
+        "ansible-navigator.ansible.doc.plugin.type": "Defaults",
+        "ansible-navigator.ansible.inventory.entries": "Ansible configuration file",
+        "ansible-navigator.ansible.inventory.help": "Defaults",
+        "ansible-navigator.ansible.playbook.help": "Defaults",
+        "ansible-navigator.ansible.playbook.path": "Command line",
+        "ansible-navigator.app": "Command line",
+        "ansible-navigator.collection-doc-cache-path": "Defaults",
+        "ansible-navigator.color.enable": "Defaults",
+        "ansible-navigator.color.osc4": "Defaults",
+        "ansible-navigator.editor.command": "Defaults",
+        "ansible-navigator.editor.console": "Defaults",
+        "ansible-navigator.exec.command": "Defaults",
+        "ansible-navigator.exec.shell": "Defaults",
+        "ansible-navigator.execution-environment.container-engine": "Automatically determined",
+        "ansible-navigator.execution-environment.container-options": "Not set",
+        "ansible-navigator.execution-environment.enabled": "Defaults",
+        "ansible-navigator.execution-environment.environment-variables.pass": "Not set",
+        "ansible-navigator.execution-environment.environment-variables.set": "Not set",
+        "ansible-navigator.execution-environment.image": "Command line",
+        "ansible-navigator.execution-environment.pull.arguments": "Not set",
+        "ansible-navigator.execution-environment.pull.policy": "Command line",
+        "ansible-navigator.execution-environment.volume-mounts": "Not set",
+        "ansible-navigator.images.details": "Defaults",
+        "ansible-navigator.inventory-columns": "Not set",
+        "ansible-navigator.logging.append": "Defaults",
+        "ansible-navigator.logging.file": "Defaults",
+        "ansible-navigator.logging.level": "Defaults",
+        "ansible-navigator.mode": "Command line",
+        "ansible-navigator.playbook-artifact.enable": "Defaults",
+        "ansible-navigator.playbook-artifact.replay": "Not set",
+        "ansible-navigator.playbook-artifact.save-as": "Defaults",
+        "ansible-navigator.settings.effective": "Defaults",
+        "ansible-navigator.settings.sample": "Defaults",
+        "ansible-navigator.settings.schema": "Defaults",
+        "ansible-navigator.settings.sources": "Defaults",
+        "ansible-navigator.time-zone": "Defaults",
+        "settings_file_path": "None",
+        "settings_file_source": "None"
+    },
+    "status": "successful",
+    "status_color": 10,
+    "stdout": [
+        "",
+        "PLAY [Tower Team Users Role Playbook] ******************************************",
+        "",
+        "TASK [Create teams in tower] ***************************************************",
+        "\u001b[0;32mok: [localhost]\u001b[0m",
+        "",
+        "TASK [Create user via tower_user module] ***************************************",
+        "\u001b[0;33mchanged: [localhost] => (item={'username': 'daniel', 'password': 'redhat123', 'email': 'daniel@lab.example.com', 'first_name': 'Daniel', 'last_name': 'George', 'state': 'present'})\u001b[0m",
+        "\u001b[0;33mchanged: [localhost] => (item={'username': 'donnie', 'password': 'redhat123', 'email': 'donnie@lab.example.com', 'first_name': 'Donnie', 'last_name': 'Jameson', 'state': 'present'})\u001b[0m",
+        "\u001b[0;33mchanged: [localhost] => (item={'username': 'david', 'password': 'redhat123', 'email': 'david@lab.example.com', 'first_name': 'David', 'last_name': 'Jackobs', 'state': 'present'})\u001b[0m",
+        "\u001b[1;35m[WARNING]: The field password of user 5 has encrypted data and may inaccurately\u001b[0m",
+        "\u001b[1;35mreport task is changed.\u001b[0m",
+        "\u001b[1;35m[WARNING]: The field password of user 6 has encrypted data and may inaccurately\u001b[0m",
+        "\u001b[1;35mreport task is changed.\u001b[0m",
+        "\u001b[1;35m[WARNING]: The field password of user 7 has encrypted data and may inaccurately\u001b[0m",
+        "\u001b[1;35mreport task is changed.\u001b[0m",
+        "",
+        "TASK [Add users to appropriate team via tower_role] ****************************",
+        "\u001b[0;32mok: [localhost] => (item={'name': 'daniel', 'team': 'Developers', 'role': 'admin', 'state': 'present'})\u001b[0m",
+        "\u001b[0;32mok: [localhost] => (item={'name': 'donnie', 'team': 'Developers', 'role': 'read', 'state': 'present'})\u001b[0m",
+        "\u001b[0;32mok: [localhost] => (item={'name': 'david', 'team': 'Developers', 'role': 'member', 'state': 'present'})\u001b[0m",
+        "",
+        "PLAY RECAP *********************************************************************",
+        "\u001b[0;33mlocalhost\u001b[0m                  : \u001b[0;32mok=3   \u001b[0m \u001b[0;33mchanged=1   \u001b[0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   "
+    ],
+    "version": "2.0.0"
+}

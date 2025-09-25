@@ -1,0 +1,463 @@
+{
+    "plays": [
+        {
+            "__play_name": "Guided Exercise -- Creating and Managing Automation Controller Users",
+            "name": "Guided Exercise -- Creating and Managing Automation Controller Users",
+            "pattern": "localhost",
+            "play": "Guided Exercise -- Creating and Managing Automation Controller Users",
+            "play_pattern": "localhost",
+            "play_uuid": "562c8849-6eeb-1f44-5ff1-000000000006",
+            "playbook": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml",
+            "playbook_uuid": "3d13a947-b0c6-4590-9d55-2996f5e7888f",
+            "tasks": [
+                {
+                    "__changed": true,
+                    "__duration": "3s",
+                    "__host": "localhost",
+                    "__number": 0,
+                    "__result": "Ok",
+                    "__task": "Create user via tower_user module",
+                    "__task_action": "ansible.controller.user",
+                    "duration": 3.329979,
+                    "end": "2025-08-19T15:07:02.379033",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Guided Exercise -- Creating and Managing Automation Controller Users",
+                    "play_pattern": "localhost",
+                    "play_uuid": "562c8849-6eeb-1f44-5ff1-000000000006",
+                    "playbook": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml",
+                    "playbook_uuid": "3d13a947-b0c6-4590-9d55-2996f5e7888f",
+                    "remote_addr": "localhost",
+                    "res": {
+                        "_ansible_no_log": null,
+                        "changed": true,
+                        "id": 4,
+                        "invocation": {
+                            "module_args": {
+                                "controller_config_file": "./controller_cli.cfg",
+                                "controller_host": null,
+                                "controller_oauthtoken": null,
+                                "controller_password": null,
+                                "controller_username": null,
+                                "email": "simon@lab.example.com",
+                                "first_name": "Simon",
+                                "is_superuser": true,
+                                "is_system_auditor": false,
+                                "last_name": "Stephens",
+                                "new_username": null,
+                                "organization": null,
+                                "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                "state": "present",
+                                "superuser": true,
+                                "username": "simon",
+                                "validate_certs": null
+                            }
+                        },
+                        "name": "simon"
+                    },
+                    "resolved_action": "ansible.controller.user",
+                    "start": "2025-08-19T15:06:59.049054",
+                    "task": "Create user via tower_user module",
+                    "task_action": "ansible.controller.user",
+                    "task_args": "",
+                    "task_path": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml:13",
+                    "task_uuid": "562c8849-6eeb-1f44-5ff1-000000000008",
+                    "uuid": "c799e798-4ab9-4025-9e9b-c9a9ceb35d7e"
+                },
+                {
+                    "__changed": true,
+                    "__duration": "9s",
+                    "__host": "localhost",
+                    "__number": 1,
+                    "__result": "Ok",
+                    "__task": "Create User via asset file",
+                    "__task_action": "ansible.controller.import",
+                    "duration": 9.116833,
+                    "end": "2025-08-19T15:07:11.505196",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Guided Exercise -- Creating and Managing Automation Controller Users",
+                    "play_pattern": "localhost",
+                    "play_uuid": "562c8849-6eeb-1f44-5ff1-000000000006",
+                    "playbook": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml",
+                    "playbook_uuid": "3d13a947-b0c6-4590-9d55-2996f5e7888f",
+                    "remote_addr": "localhost",
+                    "res": {
+                        "_ansible_no_log": null,
+                        "changed": true,
+                        "invocation": {
+                            "module_args": {
+                                "assets": {
+                                    "users": [
+                                        {
+                                            "email": "sylvia@lab.example.com",
+                                            "first_name": "Sylvia",
+                                            "is_superuser": false,
+                                            "is_system_auditor": true,
+                                            "last_name": "Simons",
+                                            "natural_key": {
+                                                "type": "user",
+                                                "username": "sylvia"
+                                            },
+                                            "username": "sylvia"
+                                        }
+                                    ]
+                                },
+                                "controller_config_file": "./controller_cli.cfg",
+                                "controller_host": null,
+                                "controller_oauthtoken": null,
+                                "controller_password": null,
+                                "controller_username": null,
+                                "validate_certs": null
+                            }
+                        }
+                    },
+                    "resolved_action": "ansible.controller.import",
+                    "start": "2025-08-19T15:07:02.388363",
+                    "task": "Create User via asset file",
+                    "task_action": "ansible.controller.import",
+                    "task_args": "",
+                    "task_path": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml:38",
+                    "task_uuid": "562c8849-6eeb-1f44-5ff1-000000000009",
+                    "uuid": "c7a3f063-4e15-4295-abfd-2184ffeea86c"
+                },
+                {
+                    "__changed": true,
+                    "__duration": "6s",
+                    "__host": "localhost",
+                    "__number": 2,
+                    "__result": "Ok",
+                    "__task": "Add tower users",
+                    "__task_action": "ansible.controller.user",
+                    "duration": 5.520653,
+                    "end": "2025-08-19T15:07:17.034298",
+                    "event_loop": null,
+                    "host": "localhost",
+                    "play": "Guided Exercise -- Creating and Managing Automation Controller Users",
+                    "play_pattern": "localhost",
+                    "play_uuid": "562c8849-6eeb-1f44-5ff1-000000000006",
+                    "playbook": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml",
+                    "playbook_uuid": "3d13a947-b0c6-4590-9d55-2996f5e7888f",
+                    "remote_addr": "localhost",
+                    "res": {
+                        "changed": true,
+                        "msg": "All items completed",
+                        "results": [
+                            {
+                                "_ansible_item_label": {
+                                    "auditor": false,
+                                    "email": "sam@lab.example.com",
+                                    "first_name": "Sam",
+                                    "last_name": "Simons",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "superuser": false,
+                                    "username": "sam"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": true,
+                                "failed": false,
+                                "id": 6,
+                                "invocation": {
+                                    "module_args": {
+                                        "auditor": false,
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "email": "sam@lab.example.com",
+                                        "first_name": "Sam",
+                                        "is_superuser": false,
+                                        "is_system_auditor": false,
+                                        "last_name": "Simons",
+                                        "new_username": null,
+                                        "organization": null,
+                                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                        "state": "present",
+                                        "superuser": false,
+                                        "username": "sam",
+                                        "validate_certs": null
+                                    }
+                                },
+                                "item": {
+                                    "auditor": false,
+                                    "email": "sam@lab.example.com",
+                                    "first_name": "Sam",
+                                    "last_name": "Simons",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "superuser": false,
+                                    "username": "sam"
+                                },
+                                "name": "sam"
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "auditor": true,
+                                    "email": "sylvia@lab.example.com",
+                                    "first_name": "Sylvia",
+                                    "last_name": "Simons",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "superuser": false,
+                                    "username": "sylvia"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": true,
+                                "failed": false,
+                                "id": 5,
+                                "invocation": {
+                                    "module_args": {
+                                        "auditor": true,
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "email": "sylvia@lab.example.com",
+                                        "first_name": "Sylvia",
+                                        "is_superuser": false,
+                                        "is_system_auditor": true,
+                                        "last_name": "Simons",
+                                        "new_username": null,
+                                        "organization": null,
+                                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                        "state": "present",
+                                        "superuser": false,
+                                        "username": "sylvia",
+                                        "validate_certs": null
+                                    }
+                                },
+                                "item": {
+                                    "auditor": true,
+                                    "email": "sylvia@lab.example.com",
+                                    "first_name": "Sylvia",
+                                    "last_name": "Simons",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "superuser": false,
+                                    "username": "sylvia"
+                                }
+                            },
+                            {
+                                "_ansible_item_label": {
+                                    "auditor": false,
+                                    "email": "simon@lab.example.com",
+                                    "first_name": "Simon",
+                                    "last_name": "Stephens",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "superuser": true,
+                                    "username": "simon"
+                                },
+                                "_ansible_no_log": null,
+                                "ansible_loop_var": "item",
+                                "changed": true,
+                                "failed": false,
+                                "id": 4,
+                                "invocation": {
+                                    "module_args": {
+                                        "auditor": false,
+                                        "controller_config_file": "./controller_cli.cfg",
+                                        "controller_host": null,
+                                        "controller_oauthtoken": null,
+                                        "controller_password": null,
+                                        "controller_username": null,
+                                        "email": "simon@lab.example.com",
+                                        "first_name": "Simon",
+                                        "is_superuser": true,
+                                        "is_system_auditor": false,
+                                        "last_name": "Stephens",
+                                        "new_username": null,
+                                        "organization": null,
+                                        "password": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER",
+                                        "state": "present",
+                                        "superuser": true,
+                                        "username": "simon",
+                                        "validate_certs": null
+                                    }
+                                },
+                                "item": {
+                                    "auditor": false,
+                                    "email": "simon@lab.example.com",
+                                    "first_name": "Simon",
+                                    "last_name": "Stephens",
+                                    "password": "redhat123",
+                                    "state": "present",
+                                    "superuser": true,
+                                    "username": "simon"
+                                }
+                            }
+                        ],
+                        "warnings": [
+                            "The field password of user 5 has encrypted data and may inaccurately report task is changed.",
+                            "The field password of user 4 has encrypted data and may inaccurately report task is changed."
+                        ]
+                    },
+                    "resolved_action": "ansible.controller.user",
+                    "start": "2025-08-19T15:07:11.513645",
+                    "task": "Add tower users",
+                    "task_action": "ansible.controller.user",
+                    "task_args": "",
+                    "task_path": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml:45",
+                    "task_uuid": "562c8849-6eeb-1f44-5ff1-00000000000a",
+                    "uuid": "0ca3499e-fd86-40de-b223-c400b874600e"
+                }
+            ],
+            "uuid": "562c8849-6eeb-1f44-5ff1-000000000006"
+        }
+    ],
+    "settings_entries": {
+        "ansible-navigator": {
+            "ansible": {
+                "config": {
+                    "help": false
+                },
+                "doc": {
+                    "help": false,
+                    "plugin": {
+                        "type": "module"
+                    }
+                },
+                "inventory": {
+                    "entries": [
+                        "/home/student/DO467-controller-playbooks/inventory"
+                    ],
+                    "help": false
+                },
+                "playbook": {
+                    "help": false,
+                    "path": "/home/student/DO467-controller-playbooks/chapter2/ge1/play_users.yml"
+                }
+            },
+            "ansible-builder": {
+                "help": false,
+                "workdir": "/home/student/DO467-controller-playbooks"
+            },
+            "app": "run",
+            "collection-doc-cache-path": "/home/student/.cache/ansible-navigator/collection_doc_cache.db",
+            "color": {
+                "enable": true,
+                "osc4": true
+            },
+            "editor": {
+                "command": "vi +{line_number} {filename}",
+                "console": true
+            },
+            "exec": {
+                "command": "/bin/bash",
+                "shell": true
+            },
+            "execution-environment": {
+                "container-engine": "podman",
+                "enabled": true,
+                "image": "hub.lab.example.com/ansible-automation-platform-22/ee-supported-rhel8:latest",
+                "pull": {
+                    "policy": "missing"
+                }
+            },
+            "images": {
+                "details": [
+                    "everything"
+                ]
+            },
+            "logging": {
+                "append": true,
+                "file": "/home/student/DO467-controller-playbooks/ansible-navigator.log",
+                "level": "warning"
+            },
+            "mode": "stdout",
+            "playbook-artifact": {
+                "enable": true,
+                "save-as": "{playbook_dir}/{playbook_name}-artifact-{time_stamp}.json"
+            },
+            "settings": {
+                "effective": false,
+                "sample": false,
+                "schema": "json",
+                "sources": false
+            },
+            "time-zone": "UTC"
+        }
+    },
+    "settings_sources": {
+        "ansible-navigator.ansible-builder.help": "Defaults",
+        "ansible-navigator.ansible-builder.workdir": "Defaults",
+        "ansible-navigator.ansible-lint.config": "Not set",
+        "ansible-navigator.ansible-lint.lintables": "Not set",
+        "ansible-navigator.ansible-runner.artifact-dir": "Not set",
+        "ansible-navigator.ansible-runner.rotate-artifacts-count": "Not set",
+        "ansible-navigator.ansible-runner.timeout": "Not set",
+        "ansible-navigator.ansible.cmdline": "Not set",
+        "ansible-navigator.ansible.config.help": "Defaults",
+        "ansible-navigator.ansible.config.path": "Not set",
+        "ansible-navigator.ansible.doc.help": "Defaults",
+        "ansible-navigator.ansible.doc.plugin.name": "Not set",
+        "ansible-navigator.ansible.doc.plugin.type": "Defaults",
+        "ansible-navigator.ansible.inventory.entries": "Ansible configuration file",
+        "ansible-navigator.ansible.inventory.help": "Defaults",
+        "ansible-navigator.ansible.playbook.help": "Defaults",
+        "ansible-navigator.ansible.playbook.path": "Command line",
+        "ansible-navigator.app": "Command line",
+        "ansible-navigator.collection-doc-cache-path": "Defaults",
+        "ansible-navigator.color.enable": "Defaults",
+        "ansible-navigator.color.osc4": "Defaults",
+        "ansible-navigator.editor.command": "Defaults",
+        "ansible-navigator.editor.console": "Defaults",
+        "ansible-navigator.exec.command": "Defaults",
+        "ansible-navigator.exec.shell": "Defaults",
+        "ansible-navigator.execution-environment.container-engine": "Automatically determined",
+        "ansible-navigator.execution-environment.container-options": "Not set",
+        "ansible-navigator.execution-environment.enabled": "Defaults",
+        "ansible-navigator.execution-environment.environment-variables.pass": "Not set",
+        "ansible-navigator.execution-environment.environment-variables.set": "Not set",
+        "ansible-navigator.execution-environment.image": "Command line",
+        "ansible-navigator.execution-environment.pull.arguments": "Not set",
+        "ansible-navigator.execution-environment.pull.policy": "Command line",
+        "ansible-navigator.execution-environment.volume-mounts": "Not set",
+        "ansible-navigator.images.details": "Defaults",
+        "ansible-navigator.inventory-columns": "Not set",
+        "ansible-navigator.logging.append": "Defaults",
+        "ansible-navigator.logging.file": "Defaults",
+        "ansible-navigator.logging.level": "Defaults",
+        "ansible-navigator.mode": "Command line",
+        "ansible-navigator.playbook-artifact.enable": "Defaults",
+        "ansible-navigator.playbook-artifact.replay": "Not set",
+        "ansible-navigator.playbook-artifact.save-as": "Defaults",
+        "ansible-navigator.settings.effective": "Defaults",
+        "ansible-navigator.settings.sample": "Defaults",
+        "ansible-navigator.settings.schema": "Defaults",
+        "ansible-navigator.settings.sources": "Defaults",
+        "ansible-navigator.time-zone": "Defaults",
+        "settings_file_path": "None",
+        "settings_file_source": "None"
+    },
+    "status": "successful",
+    "status_color": 10,
+    "stdout": [
+        "",
+        "PLAY [Guided Exercise -- Creating and Managing Automation Controller Users] ****",
+        "",
+        "TASK [Create user via tower_user module] ***************************************",
+        "\u001b[0;33mchanged: [localhost]\u001b[0m",
+        "",
+        "TASK [Create User via asset file] **********************************************",
+        "\u001b[0;33mchanged: [localhost]\u001b[0m",
+        "",
+        "TASK [Add tower users] *********************************************************",
+        "\u001b[0;33mchanged: [localhost] => (item={'username': 'sam', 'password': 'redhat123', 'email': 'sam@lab.example.com', 'first_name': 'Sam', 'last_name': 'Simons', 'state': 'present', 'superuser': False, 'auditor': False})\u001b[0m",
+        "\u001b[0;33mchanged: [localhost] => (item={'username': 'sylvia', 'password': 'redhat123', 'email': 'sylvia@lab.example.com', 'first_name': 'Sylvia', 'last_name': 'Simons', 'state': 'present', 'auditor': True, 'superuser': False})\u001b[0m",
+        "\u001b[0;33mchanged: [localhost] => (item={'username': 'simon', 'password': 'redhat123', 'email': 'simon@lab.example.com', 'first_name': 'Simon', 'last_name': 'Stephens', 'state': 'present', 'superuser': True, 'auditor': False})\u001b[0m",
+        "\u001b[1;35m[WARNING]: The field password of user 5 has encrypted data and may inaccurately\u001b[0m",
+        "\u001b[1;35mreport task is changed.\u001b[0m",
+        "\u001b[1;35m[WARNING]: The field password of user 4 has encrypted data and may inaccurately\u001b[0m",
+        "\u001b[1;35mreport task is changed.\u001b[0m",
+        "",
+        "PLAY RECAP *********************************************************************",
+        "\u001b[0;33mlocalhost\u001b[0m                  : \u001b[0;32mok=3   \u001b[0m \u001b[0;33mchanged=3   \u001b[0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   "
+    ],
+    "version": "2.0.0"
+}

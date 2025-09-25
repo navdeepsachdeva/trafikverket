@@ -1,0 +1,120 @@
+- name: Tower Team Users Role Playbook
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+
+  - name: Add tower inventory
+    ansible.controller.inventory:
+      name: "Prod"
+      description: "Production Inventory"
+      organization: "Default"
+      state: "present"
+      controller_config_file: "./controller_cli.cfg"
+
+  #- name: Add Team via command Line
+  #  shell: >
+  #          awx inventory create
+  #          --name "Prod" --organization "Default" 
+  #          --description "Production Inventory"
+  #          --conf.host https://controller.lab.example.com
+  #          --conf.username admin --conf.password redhat --conf.insecure
+            
+
+  - name: Add tower group's
+    ansible.controller.group:
+      name: "prod-servers"
+      description: "Production servers"
+      inventory: "Prod"
+      state: "present"
+      controller_config_file: "./controller_cli.cfg"
+    register: inventory_groups_output
+
+####  Print Group information created earlier, as it will be
+####  used later
+ 
+  - name: Print group's information
+    debug:
+      var: inventory_groups_output
+   
+  - name: Add tower host with "admin" user rights
+    ansible.controller.host:
+      name: "servere.lab.example.com"
+      description: "Server E"
+      inventory: "Prod"
+      controller_config_file: "./controller_cli.cfg"
+      state: "present"
+    register: inventory_hosts_output1
+
+  - name: Print Hosts servere.lab.example.com
+    debug:
+      var: inventory_hosts_output1
+
+  - name: Associate 'servere.lab.example.com' Host to Group 'prod-servers'
+    ansible.controller.group:
+      name: prod-servers
+      inventory: Prod
+      state: present
+      controller_config_file: "./controller_cli.cfg"
+      hosts:
+        - servere.lab.example.com
+      preserve_existing_hosts: True
+      preserve_existing_children: True
+
+  #- name: Associate 'servere.lab.example.com' Host to Group 'prod-servers'
+  #  shell: > 
+  #          awx host associate  
+  #          --host "{{ inventory_hosts_output1.id }}" 
+  #          --group "{{ inventory_groups_output.id }}" 
+  #          --tower-host "tower.lab.example.com" --tower-username "admin" 
+  #          --tower-password "redhat" --insecure
+
+
+
+
+  - name: Add admin role to Operations team via tower_role
+    ansible.controller.role:
+      inventory: "Prod"
+      team: "Operations"
+      role: "admin"
+      state: "present"
+      controller_config_file: "./controller_cli.cfg"
+
+  - name: Add tower host with "oliver" user rights
+    ansible.controller.host:
+      name: "serverf.lab.example.com"
+      description: "Server F"
+      inventory: "Prod"
+      state: "present"
+      controller_host: https://controller.lab.example.com
+      controller_password: redhat123
+      controller_username: oliver
+      validate_certs: false
+      # controller_config_file: "./controller_cli.cfg"
+    register: inventory_hosts_output2
+
+  - name: Print Hosts serverf.lab.example.com
+    debug:
+      var: inventory_hosts_output2
+
+  #- name: Associate 'serverf.lab.example.com' Host to Group 'prod-servers'
+    
+    #shell: > 
+    #        tower-cli host associate  
+    #        --host "{{ inventory_hosts_output2.id }}" 
+    #        --group "{{ inventory_groups_output.id }}" 
+    #        --tower-host "tower.lab.example.com" --tower-username "oliver" 
+    #        --tower-password "redhat123" --insecure
+
+  - name: Add users to appropriate team via tower_role
+    ansible.controller.role:
+      inventory: "Test"
+      team: "Developers"
+      role: use
+      state: present
+      controller_config_file: "./controller_cli.cfg"
+    #shell: > 
+    #        tower-cli role grant 
+    #        --team 'Developers' --inventory "Test" --type 'use'
+    #        --tower-host "tower.lab.example.com" --tower-username "admin" 
+    #        --tower-password "redhat" --insecure

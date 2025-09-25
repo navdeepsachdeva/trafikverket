@@ -1,0 +1,151 @@
+---
+- name: Test the execution environment (EE) repository module
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  collections:
+    - infra.ah_configuration
+  vars:
+    hub_host: localhost:5001
+    ah_hostname: http://localhost:8002/
+    ah_username: admin
+    ah_password: admin
+    ah_path_prefix: 'automation-hub'
+    ah_validate_certs: false
+    repository: test-namespace/ee-minimal-rhel8
+    tag: latest
+    fake_image: quay.io/ansible/http-test-container:2.0.0
+  pre_tasks:
+    - name: Include vars from ah_configs directory
+      ansible.builtin.include_vars:
+        dir: ./ah_configs
+        extensions: ["yml"]
+      tags:
+        - always
+  tasks:
+    # Preparing an image:
+    # - Pulling a small image from Quay (does not matter what image it is)
+    # - Tagging it so that it can be pushed to private automation hub
+    # - Pushing the image
+    # - Deleting the images from the local system
+    # The tasks do not use the podman collection because it may not be
+    # available on the testing system.
+    - name: Ensure a small container image is available
+      ansible.builtin.command:
+        cmd: "podman pull {{ fake_image }}"
+      changed_when: true
+
+    - name: Ensure the image has the correct tag
+      ansible.builtin.command:
+        cmd: "podman tag {{ fake_image }} {{ hub_host }}/{{ repository }}:{{ tag }}"
+      changed_when: true
+
+    - name: Ensure the image is pushed in private automation hub
+      ansible.builtin.command:
+        cmd: "podman push --tls-verify=false --remove-signatures
+              --creds={{ ah_username }}:{{ ah_password }}
+              {{ hub_host }}/{{ repository }}:{{ tag }}"
+      changed_when: true
+
+    # Preparing a README file
+    - name: Ensure a temporary file exists
+      ansible.builtin.tempfile:
+      register: tempfile
+
+    - name: Ensure some contents are stored in the temporary file
+      ansible.builtin.copy:
+        dest: "{{ tempfile['path'] }}"
+        mode: 0600
+        content: |
+          # Mi entorno de ejecución
+
+          * bullet 1
+          * bullet 2
+
+    - name: Registery creation
+      ansible.builtin.include_role:
+        name: ee_registry
+
+    - name: Repository creation
+      ansible.builtin.include_role:
+        name: ee_repository
+
+    - name: Repository sync
+      ansible.builtin.include_role:
+        name: ee_repository_sync
+
+    - name: Registery Index
+      ansible.builtin.include_role:
+        name: ee_registry_index
+      when: galaxy_ng_version != "master"  # https://issues.redhat.com/browse/AAH-2607
+
+    # Disabled
+    #    - name: Registery sync
+    #      ansible.builtin.include_role:
+    #        name: ee_registry_sync
+
+    - name: Tag image
+      ansible.builtin.include_role:
+        name: ee_image
+      vars:
+        ah_ee_images:
+          # Testing adding tags to the image
+          - name: "test-namespace/ee-minimal-rhel8:latest"
+            tags:
+              - v2
+              - "2.0"
+
+    - name: Append Tags to image
+      ansible.builtin.include_role:
+        name: ee_image
+      vars:
+        ah_ee_images:
+          # Testing adding tags to the image
+          - name: "test-namespace/ee-minimal-rhel8:latest"
+            append: false
+            tags:
+              - prod2
+              - prod2.0
+
+    - name: Reset Tag
+      ansible.builtin.include_role:
+        name: ee_image
+      vars:
+        ah_ee_images:
+          # Testing adding tags to the image
+          - name: "test-namespace/ee-minimal-rhel8:prod2"
+            state: present
+            append: false
+            tags: latest
+
+    - name: Remove image
+      ansible.builtin.include_role:
+        name: ee_image
+      vars:
+        ah_ee_images:
+          # Testing adding tags to the image
+          - name: "test-namespace/ee-minimal-rhel8:latest"
+            state: absent
+
+    # Testing repository deletion
+    - name: Ensure the repository does not exist
+      ansible.builtin.include_role:
+        name: ee_repository
+      vars:
+        ah_ee_repositories:
+          - name: config_as_code_ee
+            state: absent
+          - name: test-namespace/ee-minimal-rhel8
+            state: absent
+
+    - name: Ensure the temporary file is removed
+      ansible.builtin.file:
+        path: "{{ tempfile['path'] }}"
+        state: absent
+
+    - name: Ensure the images are removed
+      ansible.builtin.command:
+        cmd: "podman rmi {{ fake_image }} {{ hub_host }}/{{ repository }}:{{ tag }}"
+      changed_when: true
+...
