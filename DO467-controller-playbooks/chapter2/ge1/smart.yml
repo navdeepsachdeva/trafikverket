@@ -7,11 +7,11 @@ inventory:
   natural_key:
     name: very_smart3
     organization:
-      name: nomura
+      name: trafikverket
       type: organization
     type: inventory
   organization:
-    name: nomura
+    name: trafikverket
     type: organization
   related:
     groups: []

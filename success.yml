@@ -1,0 +1,7 @@
+- name: Success Template
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Success Task
+      ansible.builtin.debug:
+        msg: "Success Task Executed"

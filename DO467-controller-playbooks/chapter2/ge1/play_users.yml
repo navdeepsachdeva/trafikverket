@@ -5,10 +5,10 @@
   - vars_users.yml
 
   tasks:
-  # - name: Create User via asset file
-  #   ansible.controller.import:
-  #     assets: "{{ lookup('file','smart.yml') | from_yaml() }}"
-  #     controller_config_file: "./controller_cli.cfg"
+  - name: Create Smart Inventory via asset file
+    ansible.controller.import:
+      assets: "{{ lookup('file','smart.yml') | from_yaml() }}"
+      controller_config_file: "./controller_cli.cfg"
 
   - name: Create user via tower_user module
     ansible.controller.user: 

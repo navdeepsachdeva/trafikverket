@@ -1,0 +1,349 @@
+workflow_job_templates:
+- allow_simultaneous: false
+  ask_inventory_on_launch: false
+  ask_limit_on_launch: false
+  ask_scm_branch_on_launch: false
+  ask_variables_on_launch: false
+  description: ''
+  extra_vars: '---'
+  inventory: null
+  limit: null
+  name: Complete_Workflow
+  natural_key:
+    name: Complete_Workflow
+    organization:
+      name: trafikverket
+      type: organization
+    type: workflow_job_template
+  organization:
+    name: trafikverket
+    type: organization
+  related:
+    labels: []
+    notification_templates_approvals: []
+    notification_templates_error: []
+    notification_templates_started: []
+    notification_templates_success: []
+    schedules: []
+    survey_spec: {}
+    workflow_nodes:
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: Latest Playbooks
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: Latest Playbooks
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: Database Setup
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+        - identifier: ab7c7d3e-d5ec-4957-a4a3-14c618f48808
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: project_git
+        organization:
+          name: trafikverket
+          type: organization
+        type: project
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: Database Setup
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: Database Setup
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: 7c9cc989-c5e2-4a8c-a8de-aa59c2ce199b
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Database setup
+        organization:
+          name: Default
+          type: organization
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: Success
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: Success
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes: []
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Template Success
+        organization:
+          name: trafikverket
+          type: organization
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: 7c9cc989-c5e2-4a8c-a8de-aa59c2ce199b
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: 7c9cc989-c5e2-4a8c-a8de-aa59c2ce199b
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes:
+        - identifier: Inform Client
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+        credentials: []
+        failure_nodes:
+        - identifier: Last Known Good Config
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+        success_nodes:
+        - identifier: Success
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Use Cache Facts
+        organization:
+          name: trafikverket
+          type: organization
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: Last Known Good Config
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: Last Known Good Config
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes: []
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Template Failure
+        organization:
+          name: trafikverket
+          type: organization
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: Inform Client
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: Inform Client
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes: []
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Template Always
+        organization:
+          name: trafikverket
+          type: organization
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+    - all_parents_must_converge: false
+      diff_mode: null
+      extra_data: {}
+      identifier: ab7c7d3e-d5ec-4957-a4a3-14c618f48808
+      inventory: null
+      job_tags: null
+      job_type: null
+      limit: null
+      natural_key:
+        identifier: ab7c7d3e-d5ec-4957-a4a3-14c618f48808
+        type: workflow_job_template_node
+        workflow_job_template:
+          name: Complete_Workflow
+          organization:
+            name: trafikverket
+            type: organization
+          type: workflow_job_template
+      related:
+        always_nodes: []
+        credentials: []
+        failure_nodes: []
+        success_nodes:
+        - identifier: 7c9cc989-c5e2-4a8c-a8de-aa59c2ce199b
+          type: workflow_job_template_node
+          workflow_job_template:
+            name: Complete_Workflow
+            organization:
+              name: trafikverket
+              type: organization
+            type: workflow_job_template
+      scm_branch: null
+      skip_tags: null
+      unified_job_template:
+        name: Collect Facts
+        organization:
+          name: trafikverket
+          type: organization
+        type: job_template
+      verbosity: null
+      workflow_job_template:
+        name: Complete_Workflow
+        organization:
+          name: trafikverket
+          type: organization
+        type: workflow_job_template
+  scm_branch: ''
+  survey_enabled: false
+  webhook_credential: null
+  webhook_service: ''
+

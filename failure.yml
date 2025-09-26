@@ -1,0 +1,7 @@
+- name: Failure Template
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Failure Task
+      ansible.builtin.debug:
+        msg: "Failure Task Executed"
